@@ -1,0 +1,42 @@
+name: treinif
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^2.1.0
+  get: ^4.5.1
+  dio: ^4.0.4
+  shared_preferences: ^2.0.11
+  date_utils: ^0.2.0
+  fluttertoast: ^8.0.8
+  animated_text: ^1.0.2
+  animated_text_kit: ^4.2.1
+  material_floating_search_bar: ^0.3.6
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+ 
+  flutter_lints: ^1.0.0
+
+flutter:
+
+ 
+  uses-material-design: true
+  assets: 
+    - lib/assets/images/logo.png
+    - lib/assets/images/logo_light.png
+    - lib/assets/icons/home-icon.png
+    - lib/assets/icons/information-icon.png
+    - lib/assets/icons/profile-icon.png
+    - lib/assets/training-icon.png
