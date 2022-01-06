@@ -40,7 +40,7 @@ class WorkoutsPage extends GetView<WorkoutsController> {
                     children: [
                       CustomTabItemWidget("Equipe", controller.currentIndex.value, 0, (index) {
                         controller.changePage(index);
-                        controller.getAllTeamsByWorkoutsUseCase();
+                        controller.getAllTeamsByWorkouts();
                       }),
                       SizedBox(
                         width: 20,
@@ -64,7 +64,9 @@ class WorkoutsPage extends GetView<WorkoutsController> {
                     RefreshIndicator(
                       color: AppColors.lightBlue,
                       onRefresh: ()async{},
-                      child: ListView.builder(itemBuilder: (context, index) {
+                      child: ListView.builder(
+                        itemCount: controller.teamsByWorkouts.length,
+                        itemBuilder: (context, index) {
                         return CustomListTileWidget(
                           onTap: (){
                             Get.toNamed("/list_workouts_by_team");
@@ -75,7 +77,9 @@ class WorkoutsPage extends GetView<WorkoutsController> {
                      RefreshIndicator(
                       color: AppColors.lightBlue,
                       onRefresh: ()async{},
-                      child: ListView.builder(itemBuilder: (context, index) {
+                      child: ListView.builder(
+                          itemCount: controller.athletesByIndividualWorkouts.length,
+                        itemBuilder: (context, index) {
                         return CustomListTileWidget();
                       }),
                     ),

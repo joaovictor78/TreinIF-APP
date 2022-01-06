@@ -1,7 +1,4 @@
 import '/app/modules/start/submodules/home/domain/entities/athletes_entity.dart';
-
-
-
 class AthleteDTO extends AthleteEntity{
   int? id;
   String? name;

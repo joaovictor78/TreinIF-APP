@@ -1,3 +1,5 @@
+import 'package:treinif/app/modules/start/submodules/home/data/dtos/list_ahtletes_dto.dart';
+
 import '/app/core/network/interfaces/i_http_client.dart';
 import '/app/modules/start/submodules/home/domain/entities/athletes_entity.dart';
 import '/app/core/utils/return_data.dart';
@@ -9,8 +11,10 @@ class GetAllAthletesByIndividualWorkoutsDataSource implements IGetAllAthletesByI
   @override
   Future<ReturnData<List<AthleteEntity>>> call() async {
     try{
-      final response = await _client.get("/individual/workouts");
-      return ReturnData(true);
+      ListAthletesDTO listAthletesDTO = ListAthletesDTO();
+      final response = await _client.get("/athletes/individual-workouts");
+      listAthletesDTO = ListAthletesDTO.fromMap(response.data);
+      return ReturnData(true, data: listAthletesDTO.athletes);
     }catch(error){
       return ReturnData(false);
     }

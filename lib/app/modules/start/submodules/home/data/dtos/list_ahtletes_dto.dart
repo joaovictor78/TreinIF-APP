@@ -6,7 +6,7 @@ class ListAthletesDTO {
 
   ListAthletesDTO({this.size, this.athletes});
 
-  ListAthletesDTO.fromJson(Map<String, dynamic> json) {
+  ListAthletesDTO.fromMap(Map<String, dynamic> json) {
     size = json['size'];
     if (json['athletes'] != null) {
       athletes = <AthleteDTO>[];

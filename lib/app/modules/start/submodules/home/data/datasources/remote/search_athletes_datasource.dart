@@ -12,7 +12,7 @@ class SearchAthletesDataSource implements ISearchAthletesDataSource{
   Future<ReturnData<List<AthleteEntity>>> call({required int limit, required int page, required String searchTerm}) async {
     try{
       final _response = await _client.get("/athletes?limit=$limit&page=$page&search_term=$searchTerm");
-      ListAthletesDTO listAthletes = ListAthletesDTO.fromJson(_response.data);
+      ListAthletesDTO listAthletes = ListAthletesDTO.fromMap(_response.data);
       return ReturnData(true, data: listAthletes.athletes);
     } catch(error){
         return ReturnData(false, message: "Ocorreu um erro ao buscar os atletas");
