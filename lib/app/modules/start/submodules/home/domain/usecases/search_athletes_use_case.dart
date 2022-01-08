@@ -1,5 +1,4 @@
-import 'package:treinif/app/modules/start/submodules/home/domain/entities/athletes_entity.dart';
-
+import '/app/domain/entitities/athlete_entity.dart';
 import '/app/core/utils/return_data.dart';
 import '/app/modules/start/submodules/home/domain/i_repositories/i_search_athletes_repository.dart';
 

@@ -19,6 +19,7 @@ class LoginPage extends GetView<LoginController> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Obx(
            () {

@@ -1,14 +1,18 @@
-import '/app/modules/start/submodules/home/domain/entities/athletes_entity.dart';
+import 'package:treinif/app/domain/entitities/course_entity.dart';
+
+import '/app/domain/entitities/athlete_entity.dart';
+
 class AthleteDTO extends AthleteEntity{
   int? id;
   String? name;
   String? email;
   String? avatarUrl;
   int? roleId;
-  String? birthDate;
+  String? birthdate;
   String? bloodType;
   String? cpf;
   String? rg;
+  CourseEntity? course;
   int? userId;
 
   AthleteDTO(
@@ -17,11 +21,12 @@ class AthleteDTO extends AthleteEntity{
       this.email,
       this.avatarUrl,
       this.roleId, 
-      this.birthDate,
+      this.birthdate,
+      this.course,
       this.bloodType,
       this.cpf,
       this.rg,
-      this.userId}):super(name: name, email: email, birthday: birthDate, bloodType: bloodType, course: "", cpf: cpf, rg: rg);
+      this.userId}):super(name: name, email: email, birthdate: birthdate, bloodType: bloodType, course: course, cpf: cpf, rg: rg);
 
   AthleteDTO.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -29,7 +34,7 @@ class AthleteDTO extends AthleteEntity{
     email = json['email'];
     avatarUrl = json['avatar_url'];
     roleId = json['role_id'];
-    birthDate = json['birth_date'];
+    birthdate = json['birth_date'];
     bloodType = json['blood_type'];
     cpf = json['CPF'];
     rg = json['RG'];
@@ -43,7 +48,7 @@ class AthleteDTO extends AthleteEntity{
     data['email'] = this.email;
     data['avatar_url'] = this.avatarUrl;
     data['role_id'] = this.roleId;
-    data['birth_date'] = this.birthDate;
+    data['birth_date'] = this.birthdate;
     data['blood_type'] = this.bloodType;
     data['CPF'] = this.cpf;
     data['RG'] = this.rg;

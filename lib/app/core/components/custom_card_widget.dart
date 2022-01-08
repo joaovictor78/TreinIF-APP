@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:treinif/app/core/components/custom_text_widget.dart';
+import '/app/modules/start/submodules/workouts/domain/entitities/athlete_by_individual_workout_entity.dart';
+import '/app/core/components/custom_text_widget.dart';
+import '/app/modules/start/submodules/workouts/domain/entitities/team_entity.dart';
 import '/app/core/styles/app_colors.dart';
 
 class CustomListTileWidget extends StatelessWidget {
-  CustomListTileWidget({this.onTap, Key? key}) : super(key: key);
+  CustomListTileWidget({this.onTap, this.teamEntity, this.athleteEntity});
+  TeamEntity? teamEntity;
+  AthleteByIndividualWorkoutEntity? athleteEntity;
   void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -28,13 +32,13 @@ class CustomListTileWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.network(
-                        'https://img.r7.com/imag/afp-presidente-jair-bolsonaro-02122021180916996?dimensions=771x420',
+                       teamEntity != null ? "" : 'https://img.r7.com/imag/afp-presidente-jair-bolsonaro-02122021180916996?dimensions=771x420',
                         width: 70,
                         height: 70,
                         fit: BoxFit.cover,
                         errorBuilder: (context, object, trace) {
                           return Center(
-                            child: CustomTextWidget(text: "A"),
+                            child: CustomTextWidget(text: teamEntity!.name![0].toUpperCase()),
                           );
                         },
                       ),
@@ -45,9 +49,9 @@ class CustomListTileWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTextWidget(text: "Ana Julia"),
+                      CustomTextWidget(text: teamEntity != null ? teamEntity?.name ?? "" : athleteEntity?.athlete?.name ?? ""),
                       CustomTextWidget(
-                        text: "Equipe: C",
+                        text: teamEntity != null ? "Modalidade: ${teamEntity?.modality?.name ?? ''}"  : "Equipe: ${athleteEntity?.team?.name ?? ''}",
                         fontSize: 10,
                       )
                     ],
@@ -57,7 +61,7 @@ class CustomListTileWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: CustomTextWidget(
-                      text: "Modalidade: Atletismo", fontSize: 10),
+                      text: "", fontSize: 10),
                 )
               ],
             ),

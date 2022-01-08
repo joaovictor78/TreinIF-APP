@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:treinif/app/domain/entitities/athlete_entity.dart';
+import 'package:treinif/app/modules/start/submodules/workouts/domain/entitities/athlete_by_individual_workout_entity.dart';
+import 'package:treinif/app/modules/start/submodules/workouts/domain/entitities/team_entity.dart';
 import '/app/core/components/custom_tab_item_widget.dart';
 import '/app/core/styles/app_images.dart';
 import '/app/core/components/custom_card_widget.dart';
@@ -67,7 +70,9 @@ class WorkoutsPage extends GetView<WorkoutsController> {
                       child: ListView.builder(
                         itemCount: controller.teamsByWorkouts.length,
                         itemBuilder: (context, index) {
+                        TeamEntity team = controller.teamsByWorkouts[index];
                         return CustomListTileWidget(
+                          teamEntity: team,
                           onTap: (){
                             Get.toNamed("/list_workouts_by_team");
                           },
@@ -80,7 +85,10 @@ class WorkoutsPage extends GetView<WorkoutsController> {
                       child: ListView.builder(
                           itemCount: controller.athletesByIndividualWorkouts.length,
                         itemBuilder: (context, index) {
-                        return CustomListTileWidget();
+                        AthleteByIndividualWorkoutEntity athleteEntity = controller.athletesByIndividualWorkouts[index];
+                        return CustomListTileWidget(  
+                          athleteEntity: athleteEntity,
+                        );
                       }),
                     ),
                   ],

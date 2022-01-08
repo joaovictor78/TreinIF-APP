@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/modules/manage_workouts_by_team/presentation/pages/list_workouts_by_team_page.dart';
+import '/app/modules/manage_workouts_by_team/presentation/pages/manage_workout_page.dart';
 import '/app/modules/register/register_user_biding.dart';
 import '/app/modules/start/submodules/workouts/presentation/pages/create_team_page.dart';
 import '/app/app_binding.dart';
 import '/app/modules/manage_workouts_by_team/manage_workouts_by_team_biding.dart';
-import '/app/modules/manage_workouts_by_team/pages/list_workouts_by_team_page.dart';
-import '/app/modules/manage_workouts_by_team/pages/manage_workout_page.dart';
 import 'app/modules/start/start_biding.dart';
 import 'app/modules/start/start_page.dart';
 import 'app/core/styles/app_colors.dart';

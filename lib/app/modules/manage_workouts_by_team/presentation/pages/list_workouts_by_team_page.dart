@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/core/components/custom_input_widget.dart';
+import '/app/core/components/custom_input_widget.dart';
+import '/app/modules/manage_workouts_by_team/controllers/list_workouts_by_team_controller.dart';
 import '/app/core/components/custom_back_button_widget.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_text_widget.dart';
 import '/app/core/components/custom_workout_check_card_widget.dart';
 import '/app/core/styles/app_colors.dart';
 
-class ListWorkoutsByTeamPage extends StatelessWidget {
+class ListWorkoutsByTeamPage extends GetView<ListWorkoutsOfTeamController> {
   const ListWorkoutsByTeamPage({Key? key}) : super(key: key);
 
   @override

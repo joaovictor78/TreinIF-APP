@@ -1,5 +1,5 @@
 class ModalityEntity{
-  String? id;
+  int? id;
   String? name;
   ModalityEntity({this.id, this.name});
 }

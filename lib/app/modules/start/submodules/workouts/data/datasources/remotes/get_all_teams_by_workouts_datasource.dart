@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:treinif/app/modules/start/submodules/workouts/data/dtos/list_teams_dto.dart';
+import '/app/modules/start/submodules/workouts/data/dtos/list_teams_dto.dart';
 
 import '/app/core/network/interfaces/i_http_client.dart';
 import '/app/modules/start/submodules/workouts/data/repositories/i_datasourses/i_get_all_teams_workouts_datasource.dart';
@@ -15,7 +15,7 @@ class GetAllTeamsByWorkoutsDataSource implements IGetAllTeamsWorkoutsDataSource{
   Future<ReturnData<List<TeamEntity>>> call() async {
     try{
       ListTeamsDTO listTeams;
-      final response = await _client.get("/teams/workouts");
+      final response = await _client.get("/teams");
       listTeams = ListTeamsDTO.fromMap(response.data);
       return ReturnData(true, data: listTeams.teams);
     }catch(error){

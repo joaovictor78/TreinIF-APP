@@ -1,4 +1,14 @@
 import 'package:get/get.dart';
+import '/app/modules/start/submodules/workouts/data/datasources/remotes/create_team_datasource.dart';
+import '/app/modules/start/submodules/workouts/data/repositories/create_team_repository.dart';
+import '/app/modules/start/submodules/workouts/domain/usecases/create_team_usecase.dart';
+import '/app/modules/start/submodules/workouts/controllers/create_team_controller.dart';
+import '/app/modules/start/submodules/workouts/data/datasources/remotes/generate_code_to_workout_datasource.dart';
+import '/app/modules/start/submodules/workouts/data/datasources/remotes/get_all_modalities_datasource.dart';
+import '/app/modules/start/submodules/workouts/data/repositories/generate_code_to_workout_repository.dart';
+import '/app/modules/start/submodules/workouts/data/repositories/get_all_modalities_repository.dart';
+import '/app/modules/start/submodules/workouts/domain/usecases/generate_code_to_workout_usecase.dart';
+import '/app/modules/start/submodules/workouts/domain/usecases/get_all_modalities_usecase.dart';
 import '/app/modules/start/submodules/home/domain/usecases/search_athletes_use_case.dart';
 import '/app/core/network/custom_dio/custom_dio.dart';
 import '/app/modules/start/submodules/workouts/data/datasources/remotes/get_all_atheltes_by_individual_workouts_datasource.dart';
@@ -32,5 +42,15 @@ class StartBiding extends Bindings {
     Get.lazyPut(() => WorkoutsController(
         getAllTeamsByWorkoutsUseCase: Get.find(),
         getAllAthletesByIndividualWorkoutsUseCase: Get.find()));
+    Get.lazyPut(() => GenerateCodeToWorkoutDataSource(Get.find<CustomDio>()));
+    Get.lazyPut(() => GenerateCodeToWorkoutRepository(Get.find<GenerateCodeToWorkoutDataSource>()));
+    Get.lazyPut(() => GenerateCodeToWorkoutUseCase(Get.find<GenerateCodeToWorkoutRepository>()));
+    Get.lazyPut(() => GetAllModalitiesDataSource(Get.find<CustomDio>()));
+    Get.lazyPut(() => GetAllModalitiesRepository(Get.find<GetAllModalitiesDataSource>()));
+    Get.lazyPut(() => GetAllModalitiesUseCase(Get.find<GetAllModalitiesRepository>()));
+    Get.lazyPut(() => CreateTeamDataSource(Get.find<CustomDio>()));
+    Get.lazyPut(() => CreateTeamRepository(Get.find<CreateTeamDataSource>()));
+    Get.lazyPut(() => CreateTeamUseCase(Get.find<CreateTeamRepository>()));
+    Get.lazyPut(() => CreateTeamController(generateCodeToWorkoutUseCase: Get.find(), getAllModalitiesUseCase: Get.find(), createTeamUseCase: Get.find()));
   }
 }

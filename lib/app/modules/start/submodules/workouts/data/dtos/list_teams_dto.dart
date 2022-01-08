@@ -7,10 +7,10 @@ class ListTeamsDTO {
 
   ListTeamsDTO({this.teams});
 
-  ListTeamsDTO.fromMap(Map<String, dynamic> json) {
-    if (json['teams'] != null) {
+  ListTeamsDTO.fromMap(List<dynamic> list) {
+    if (list != null) {
       teams = <TeamDTO>[];
-      json['teams'].forEach((v) {
+      list.forEach((v) {
         teams!.add(new TeamDTO.fromMap(v));
       });
     }

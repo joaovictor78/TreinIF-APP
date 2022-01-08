@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:treinif/app/core/styles/app_colors.dart';
+import 'package:treinif/app/domain/entitities/athlete_entity.dart';
 import '/app/core/components/custom_text_widget.dart';
-import '/app/modules/start/submodules/home/domain/entities/athletes_entity.dart';
 import '/app/modules/start/submodules/home/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
