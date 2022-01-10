@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:treinif/app/core/components/custom_text_widget.dart';
 
 class CustomBackButtonWidget extends StatelessWidget {
-  const CustomBackButtonWidget({Key? key}) : super(key: key);
-
+ CustomBackButtonWidget({this.color = Colors.white});
+ Color? color;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +15,7 @@ class CustomBackButtonWidget extends StatelessWidget {
           decoration:
               BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white)),
+                border: Border.all(color: color!)),
           child: ClipOval(
             child: Material(
               color: Colors.transparent,
@@ -25,14 +25,14 @@ class CustomBackButtonWidget extends StatelessWidget {
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: Icon(Icons.arrow_back, size: 25,),
+                  child: Icon(Icons.arrow_back, size: 25, color: color),
                 ),
               ),
             ),
           ),
         ),
         SizedBox(width: 10),
-        CustomTextWidget(text: "Voltar", fontSize: 15,)
+        CustomTextWidget(text: "Voltar", fontSize: 15, color: color)
       ],
     ));
   }

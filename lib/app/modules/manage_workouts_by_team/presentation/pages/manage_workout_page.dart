@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:treinif/app/core/components/custom_calendar.dart';
-import 'package:treinif/app/core/components/custom_workout_card_widget.dart';
+import '/app/core/components/custom_calendar.dart';
+import '/app/core/components/custom_workout_card_widget.dart';
 import '/app/core/components/custom_card_widget.dart';
 import '/app/modules/manage_workouts_by_team/controllers/manage_workout_controller.dart';
 import '/app/core/components/custom_tab_item_widget.dart';
@@ -73,7 +73,14 @@ class ManageWorkoutPage extends GetView<ManageWorkoutController> {
                             onRefresh: () async {},
                             child:
                                 ListView.builder(itemBuilder: (context, index) {
-                              return CustomListTileWidget();
+                              return Container(
+                                height: 70,
+                                child: CustomListTileWidget(
+                                  onTap: (){
+                                    Get.toNamed("/athlete_profile");
+                                  },
+                                ),
+                              );
                             }),
                           ),
                         ],

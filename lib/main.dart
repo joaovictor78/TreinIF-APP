@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/modules/athlete_profile/athlete_profile_biding.dart';
+import '/app/modules/athlete_profile/presentation/pages/athlete_profile_page.dart';
 import '/app/modules/manage_workouts_by_team/presentation/pages/list_workouts_by_team_page.dart';
 import '/app/modules/manage_workouts_by_team/presentation/pages/manage_workout_page.dart';
 import '/app/modules/register/register_user_biding.dart';
@@ -47,7 +49,9 @@ void main() {
       GetPage(
           name: "/manage_workout",
           page: () => ManageWorkoutPage(),
-          binding: ManageWorkoutsByTeamBiding())
+          binding: ManageWorkoutsByTeamBiding()),
+      GetPage(name: "/athlete_profile", page: () => AthleteProfilePage(), 
+      binding: AthleteProfileBiding())
     ],
     home: LoginPage(),
   ));
