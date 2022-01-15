@@ -76,7 +76,7 @@ class ManageWorkoutPage extends GetView<ManageWorkoutController> {
                               return Container(
                                 height: 70,
                                 child: CustomListTileWidget(
-                                  onTap: (){
+                                  onTap: () {
                                     Get.toNamed("/athlete_profile");
                                   },
                                 ),
@@ -148,7 +148,9 @@ Widget trainingListByTeam() {
                 text: "Treino", fontSize: 15, fontWeight: FontWeight.w600),
             OutlinedButton(
                 child: CustomTextWidget(text: "Adicionar exercícios"),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed("/manage_workout/add_exercise");
+                },
                 style: OutlinedButton.styleFrom(
                     side: BorderSide(width: 1.0, color: Colors.white))),
           ],

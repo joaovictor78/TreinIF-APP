@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:treinif/app/modules/manage_exercicies_types/presentation/pages/manage_exercises_types_page.dart';
+import '/app/modules/athlete_profile/presentation/pages/historic_of_athlete_page.dart';
+import '/app/modules/manage_workouts_by_team/presentation/pages/add_exercise_page.dart';
 import '/app/modules/athlete_profile/athlete_profile_biding.dart';
 import '/app/modules/athlete_profile/presentation/pages/athlete_profile_page.dart';
 import '/app/modules/manage_workouts_by_team/presentation/pages/list_workouts_by_team_page.dart';
@@ -49,9 +52,16 @@ void main() {
       GetPage(
           name: "/manage_workout",
           page: () => ManageWorkoutPage(),
+          children: [
+            GetPage(name: "/add_exercise", page: () => AddExercisePage())
+          ],
           binding: ManageWorkoutsByTeamBiding()),
       GetPage(name: "/athlete_profile", page: () => AthleteProfilePage(), 
-      binding: AthleteProfileBiding())
+      children: [
+        GetPage(name: "/historic", page: () => HistoricOfAthletePage())
+      ],
+      binding: AthleteProfileBiding()),
+      GetPage(name: "/manage_exercises_types", page: () => ManageExercisesTypesPage( ))
     ],
     home: LoginPage(),
   ));

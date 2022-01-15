@@ -24,6 +24,9 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
             color: Color(0xff3F414F),
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: CustomButtonWidget(
+              onPressed: (){
+             
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CustomTextWidget(

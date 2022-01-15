@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:treinif/app/core/components/custom_loading_indicator_widget.dart';
-import 'package:treinif/app/core/models/course_model.dart';
-import 'package:treinif/app/modules/register/controllers/register_user_controller.dart';
+import '/app/core/components/custom_loading_indicator_widget.dart';
+import '/app/core/models/course_model.dart';
+import '/app/modules/register/controllers/register_user_controller.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_drop_down_widget.dart';
 import '/app/core/components/custom_input_widget.dart';

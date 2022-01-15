@@ -170,7 +170,6 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
         child: ListView(
           controller: widget.route.scrollController,
           padding: kMaterialListPadding,
-          itemExtent: _kMenuItemHeight,
           shrinkWrap: true,
           children: children,
         ),
@@ -195,28 +194,32 @@ class _DropdownMenuState<T> extends State<_DropdownMenu<T>> {
             child: widget.onPressed == null
                 ? scrollConfig
                 : Container(
-                    height: children.length * 80,
-                    child: Column(
+                    height: 300,
+                    child: Stack(
                       children: [
                         scrollConfig,
-                        Spacer(),
-                        Container(
-                          alignment: Alignment.bottomCenter,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: AppColors.lightBlue,
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10))),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
                           child: Container(
+                            height: 50,
                             width: double.infinity,
-                            child: TextButton(
-                              child: Text("ENTRAR",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.white,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600)),
-                              onPressed: () {},
+                            decoration: BoxDecoration(
+                                color: AppColors.lightBlue,
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10))),
+                            child: Container(
+                              width: double.infinity,
+                              child: TextButton(
+                                child: Text("GERENCIAR EXERCICIOS",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600)),
+                                onPressed: widget.onPressed,
+                              ),
                             ),
                           ),
                         )
@@ -513,7 +516,7 @@ class _DropdownButtonState<T> extends State<CustomDropdownButton<T>>
       widget.style ?? Theme.of(context).textTheme.subtitle1!;
 
   void _handleTap() {
-    if(widget.onClicked != null){
+    if (widget.onClicked != null) {
       widget.onClicked!();
     }
     final RenderBox itemBox = context.findRenderObject()! as RenderBox;

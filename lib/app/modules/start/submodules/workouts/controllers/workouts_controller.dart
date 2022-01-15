@@ -22,13 +22,18 @@ class WorkoutsController extends GetxController {
     pageController!.jumpToPage(index);
   }
 
+  @override 
+  void onInit(){
+    getAllTeamsByWorkouts();
+    super.onInit();
+  }
   getAllAthletesByIndividualWorkouts() async {
     final response = await getAllAthletesByIndividualWorkoutsUseCase();
     if (!response.success) {
       return CustomToast.showToast("Ocorreu um erro ao pegar os treinos!",
           backgroundColor: Colors.red);
     }
-    athletesByIndividualWorkouts = RxList.of(response.data!);
+    athletesByIndividualWorkouts.value = response.data!;
   }
 
   getAllTeamsByWorkouts() async {
@@ -37,6 +42,6 @@ class WorkoutsController extends GetxController {
       return CustomToast.showToast("Ocorreu um erro ao pegar os treinos!",
           backgroundColor: Colors.red);
     }
-    teamsByWorkouts = RxList.of(response.data!);
+    teamsByWorkouts.value = response.data!;
   }
 }
