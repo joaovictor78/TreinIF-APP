@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/modules/login/controllers/login_controller.dart';
+import '/app/modules/login/controllers/login_controller.dart';
 import '/app/core/network/custom_dio/custom_dio.dart';
 import 'modules/login/repositories/login_repository.dart';
 

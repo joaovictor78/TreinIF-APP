@@ -68,7 +68,17 @@ class HomePage extends GetView<HomeController> {
               itemBuilder: (context, index) {
                 AthleteEntity athlete = controller.athletes[index];
                 return ListTile(
-                  tileColor: AppColors.lightGrey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  tileColor: AppColors.mediumGrey,
+                  onTap: () {
+                    Get.toNamed("/athlete_profile", arguments: athlete);
+                  },
+                  leading: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(athlete.avatarUrl ?? ""),
+                    backgroundColor: Colors.transparent,
+                  ),
                   title: CustomTextWidget(text: athlete.name ?? ""),
                   subtitle: CustomTextWidget(text: athlete.email ?? ""),
                 );

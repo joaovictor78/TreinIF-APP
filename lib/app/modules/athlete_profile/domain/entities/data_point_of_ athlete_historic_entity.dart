@@ -2,7 +2,11 @@ import '/app/modules/athlete_profile/domain/entities/value_data_point_of_athlete
 
 class DataPointOfAthleteHistoricEntity{
   int? id;
-  int? athleteID;
   String? date;
   List<ValueDataPointOfAthleteHistoricEntity>? values;
+  DataPointOfAthleteHistoricEntity({
+    this.id,
+    this.date,
+    this.values
+  });
 }

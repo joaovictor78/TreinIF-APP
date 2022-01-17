@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:treinif/app/domain/entitities/athlete_entity.dart';
 import '/app/core/components/custom_text_widget.dart';
 import '/app/core/styles/app_colors.dart';
 
 class AthleteDataCardComponent extends StatelessWidget {
+  AthleteDataCardComponent(this._athleteEntity);
+  AthleteEntity _athleteEntity;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +24,7 @@ class AthleteDataCardComponent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomTextWidget(text: "Dados pessoais"),
+          CustomTextWidget(text: "Dados pessoais", fontSize: 15, fontWeight: FontWeight.w600,),
           Row(
             children: [
               Expanded(
@@ -29,9 +32,9 @@ class AthleteDataCardComponent extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomTextWidget(text: "CPF: 000.000.000"),
-                    CustomTextWidget(text: "RG: 0000.000"),
-                    CustomTextWidget(text: "Curso: Tec. Informática"),
+                    CustomTextWidget(text: "CPF: ${_athleteEntity.cpf}"),
+                    CustomTextWidget(text: "RG: ${_athleteEntity.rg}"),
+                    CustomTextWidget(text: "Curso: ${_athleteEntity.course?.name}"),
                   ],
                 ),
               ),

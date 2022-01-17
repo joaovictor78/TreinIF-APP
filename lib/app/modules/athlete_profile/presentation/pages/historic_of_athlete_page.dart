@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '/app/modules/athlete_profile/controllers/historic_of_athlete_controller.dart';
+import '/app/modules/athlete_profile/domain/entities/data_point_of_%20athlete_historic_entity.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_input_widget.dart';
 import '/app/core/styles/app_colors.dart';
@@ -7,9 +10,9 @@ import '/app/core/components/custom_text_widget.dart';
 import "/app/modules/athlete_profile/presentation/components/athlete's_history_data_point_card_component.dart";
 import '/app/core/components/custom_back_button_widget.dart';
 
-class HistoricOfAthletePage extends StatelessWidget {
-  const HistoricOfAthletePage({Key? key}) : super(key: key);
-
+class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
+  DataPointOfAthleteHistoricEntity _dataPoint = Get.arguments["historic"];
+  int athleteID = Get.arguments["id"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +36,12 @@ class HistoricOfAthletePage extends StatelessWidget {
             children: [
               SizedBox(height: 30),
               CustomTextWidget(text: "Historico do Atleta", fontSize: 18),
-              CustomTextWidget(text: "Data 00/00/0000"),
+              CustomTextWidget(text: "Data ${_dataPoint.date}"),
               SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(itemBuilder: (context, index) {
+                child: ListView.builder(
+                  itemCount: _dataPoint.values!.length,
+                  itemBuilder: (context, index) {
                   return AthletesHistoryDataPointCard();
                 }),
               )
@@ -79,6 +84,7 @@ class HistoricOfAthletePage extends StatelessWidget {
                         child: CustomTextWidget(text: "Tipo:", fontSize: 14),
                       ),
                       CustomInputWidget(
+                        controller: controller.newValueDataPointTypeTextController,
                         hintText: "Ex: Pressão",
                         icon: Icons.text_fields_rounded,
                       ),
@@ -87,6 +93,7 @@ class HistoricOfAthletePage extends StatelessWidget {
                         child: CustomTextWidget(text: "Valor:", fontSize: 14),
                       ),
                       CustomInputWidget(
+                        controller: controller.newValueDataPointValueTextController,
                         icon: Icons.assignment,
                         hintText: "8mmHg",
                       ),
@@ -100,6 +107,9 @@ class HistoricOfAthletePage extends StatelessWidget {
                           children: [
                             CustomButtonWidget(
                               text: "Adicionar",
+                              onPressed: (){
+                                controller.addValueDataPoint(athleteID, _dataPoint.id!);
+                              },
                               color: AppColors.mediumGreen,
                               padding: EdgeInsets.symmetric(horizontal: 25),
                             ),

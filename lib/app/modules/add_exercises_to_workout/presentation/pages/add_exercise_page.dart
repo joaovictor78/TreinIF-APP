@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +5,7 @@ import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_drop_down_widget.dart';
 import '/app/core/components/custom_input_widget.dart';
 import '/app/core/components/custom_text_widget.dart';
-import '/app/modules/manage_workouts_by_team/controllers/add_exercise_controller.dart';
+import '../../controllers/add_exercise_controller.dart';
 import '/app/core/components/custom_back_button_widget.dart';
 import '/app/core/styles/app_colors.dart';
 
@@ -45,7 +43,6 @@ class AddExercisePage extends GetView<AddExerciseController> {
                     dropdownColor: Colors.yellow,
                     value: null,
                     onPressed: () {
-                      log("çlkfjasçdlfkjasd");
                       Get.toNamed("/manage_exercises_types");
                     },
                     onChanged: (String? blood) {},

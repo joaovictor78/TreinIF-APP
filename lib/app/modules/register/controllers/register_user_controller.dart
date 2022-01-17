@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/core/components/custom_toast.dart';
-import 'package:treinif/app/core/models/athlete_model.dart';
-import 'package:treinif/app/core/models/course_model.dart';
-import 'package:treinif/app/core/styles/app_colors.dart';
+import '/app/core/components/custom_toast.dart';
+import '/app/core/models/athlete_model.dart';
+import '/app/core/models/course_model.dart';
+import '/app/core/styles/app_colors.dart';
 import '/app/core/services/session_control_service.dart';
 import '/app/core/models/logged_user_model.dart';
 import '/app/core/models/user_model.dart';

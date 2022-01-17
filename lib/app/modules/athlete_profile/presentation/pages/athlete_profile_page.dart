@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:treinif/app/domain/entitities/athlete_entity.dart';
 import '/app/core/components/custom_back_button_widget.dart';
 import '/app/core/components/custom_paint_widget.dart';
 import '/app/core/styles/app_colors.dart';
@@ -11,8 +12,8 @@ import '/app/core/components/custom_button_widget.dart';
 import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart';
 
 class AthleteProfilePage extends GetView<AthleteProfileController> {
-  const AthleteProfilePage({Key? key}) : super(key: key);
-
+ 
+  AthleteEntity _athleteEntity = Get.arguments; 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -71,7 +72,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                                 color: const Color(0xff7c94b6),
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                      'https://blogdoiphone.com/wp-content/uploads/2017/11/Steve-Jobs.jpg'),
+                                      _athleteEntity.avatarUrl ?? ""),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius:
@@ -92,10 +93,10 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CustomTextWidget(
-                                        text: "Ana Julia",
+                                        text: _athleteEntity.name ?? "",
                                         color: AppColors.primaryColor),
                                     CustomTextWidget(
-                                        text: "anajulia@gmail.com",
+                                        text: _athleteEntity.email ?? "",
                                         color: AppColors.primaryColor),
                                   ]),
                             )
@@ -103,7 +104,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                         ),
                       ),
                       Expanded(child: Container()),
-                      AthleteDataCardComponent()
+                      AthleteDataCardComponent(_athleteEntity)
                     ]),
                   ),
                 ),
