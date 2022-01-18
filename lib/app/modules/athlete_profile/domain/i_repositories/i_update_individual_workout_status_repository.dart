@@ -1,5 +1,5 @@
 import '/app/core/utils/return_data.dart';
 
-abstract class IUpdateWorkoutStatusRepository{
+abstract class IUpdateIndividualWorkoutStatusRepository{
   Future<ReturnData> call(int workoutID);
 }

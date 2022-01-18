@@ -6,7 +6,8 @@ import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart
 import '/app/core/components/custom_text_widget.dart';
 
 class AthleteWorkoutsComponent extends StatelessWidget {
-  AthleteProfileController _athleteProfileController = Get.find<AthleteProfileController>();
+  AthleteProfileController _athleteProfileController =
+      Get.find<AthleteProfileController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,17 +18,27 @@ class AthleteWorkoutsComponent extends StatelessWidget {
           child: CustomTextWidget(text: "Treinos do Atleta"),
         ),
         Expanded(
-          child: _athleteProfileController.isLoading.value ? Center(child: CircularProgressIndicator()) : _athleteProfileController.dataPoints.isEmpty ? Center(child: CustomTextWidget(text: "Nenhum ponto de dado encontrado,\nadicione-os ao historico!")) : ListView.builder(
-          padding: EdgeInsets.only(top: 10),
-          itemBuilder: (_, __) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: CustomWorkoutCheckCardWidget(
-              onTap: () {
-              Get.toNamed("/manage_individual_workout");
-            }),
-          );
-        }))
+            child: _athleteProfileController.isLoading.value
+                ? Center(child: CircularProgressIndicator())
+                : _athleteProfileController.workouts.isEmpty
+                    ? Container(
+                      padding: EdgeInsets.only(top: 70),
+                      alignment: Alignment.topCenter,
+                        child: CustomTextWidget(
+                            text:
+                                "Nenhum ponto de dado encontrado,\nadicione-os ao historico!", textAlign: TextAlign.center))
+                    : ListView.builder(
+                        padding: EdgeInsets.only(top: 10),
+                        itemCount: _athleteProfileController.workouts.length,
+                        itemBuilder: (_, __) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: CustomWorkoutCheckCardWidget(onTap: () {
+                              Get.toNamed("/manage_individual_workout");
+                            }),
+                          );
+                        }))
       ],
     );
   }

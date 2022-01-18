@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/modules/athlete_profile/data/datasources/remove_value_data_point_of_historic_of_athlete_datasource.dart';
+import '/app/modules/athlete_profile/data/datasources/update_value_data_point_of_historic_of_athlete_datasource.dart';
 import '/app/core/components/custom_toast.dart';
 import '/app/core/styles/app_colors.dart';
 import '/app/modules/athlete_profile/domain/entities/value_data_point_of_athlete_historic_entity.dart';
@@ -10,6 +12,8 @@ import '/app/modules/athlete_profile/domain/usecases/add_value_data_point_of_his
 class HistoricOfAthleteController extends GetxController{
   HistoricOfAthleteController({required this.addValueDataPointOfHistoricOfAthleteUseCase });
   AddValueDataPointOfHistoricOfAthleteUseCase addValueDataPointOfHistoricOfAthleteUseCase;
+  RemoveValueDataPointOfHistoricOfAthleteDataSource removeValueDataPointOfHistoricOfAthleteDataSource;
+  UpdateValueDataPointOfHistoricOfAthleteDataSource updateValueDataPointOfHistoricOfAthleteDataSource;
   late AthleteProfileController _athleteProfileController;
   late TextEditingController newValueDataPointTypeTextController;
   late TextEditingController newValueDataPointValueTextController;

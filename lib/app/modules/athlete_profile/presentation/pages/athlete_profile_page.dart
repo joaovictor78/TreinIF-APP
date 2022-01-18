@@ -34,7 +34,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: constrains.maxHeight * .45,
+                        height: constrains.maxHeight * .40,
                         child: CustomPaintWidget(
                           child: Column(children: [
                             Container(
@@ -166,7 +166,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
 
                               },
                               onEditable: (){
-                                showDialog(context, true);
+                                showDialogToAddDataPoint(context, true);
                               },
                             ),
                             AthleteWorkoutsComponent()
@@ -188,7 +188,10 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                     child: CustomButtonWidget(
                       onPressed: () {
                         if (controller.currentIndex.value == 0) {
-                          showDialog(context);
+                          showDialogToAddDataPoint(context);
+                        } 
+                        if(controller.currentIndex.value == 1){
+                          showDialogToAddNewWorkout(context);
                         }
                       },
                       child: Padding(
@@ -208,13 +211,87 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
           });
         }));
   }
-
-  void showDialog(BuildContext context, [bool isEditable = false]) {
+  void showDialogToAddNewWorkout(BuildContext context, [bool isEditable = false]) {
     showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "",
       context: context,
       pageBuilder: (_, __, ___) {
+        if(!isEditable) controller.workoutNameTextController?.clear();
+        return Container(
+            padding: EdgeInsets.all(40),
+            alignment: Alignment.center,
+            child: Material(
+              color: AppColors.primaryColor.withAlpha(3),
+              child: Container(
+                  height: isEditable ? 250 : 310,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25, top: 16),
+                        child: CustomTextWidget(
+                            text: isEditable
+                                ? "Editar nome do treino"
+                                : "Adicionar novo treino",
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(
+                        height: 20
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: CustomTextWidget(text: "Nome :", fontSize: 14),
+                      ),
+                      CustomInputWidget(
+                          controller: controller.workoutNameTextController,
+                          hintText: "Ex: Treino1",
+                          icon: Icons.sports_volleyball_sharp),
+                      Spacer(),
+                      Container(
+                        padding: EdgeInsets.only(bottom: 20),
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            CustomButtonWidget(
+                              text: isEditable ? "Confirmar" : "Adicionar",
+                              onPressed: () {
+                                //controller.addValueDataPoint(athleteID, _dataPoint.id!);
+                              },
+                              color: AppColors.mediumGreen,
+                              padding: EdgeInsets.symmetric(horizontal: 25),
+                            ),
+                            SizedBox(
+                              width: 25,
+                            ),
+                            CustomButtonWidget(
+                              text: "Cancelar",
+                              color: AppColors.red,
+                              padding: EdgeInsets.symmetric(horizontal: 25),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.darkGrey,
+                    borderRadius: BorderRadius.circular(20),
+                  )),
+            ));
+      },
+    );
+  }
+  void showDialogToAddDataPoint(BuildContext context, [bool isEditable = false]) {
+    showGeneralDialog(
+      barrierDismissible: true,
+      barrierLabel: "",
+      context: context,
+      pageBuilder: (_, __, ___) {
+         if(!isEditable) controller.dateDataPointTextController?.clear();
         return Container(
             padding: EdgeInsets.all(40),
             alignment: Alignment.center,
@@ -249,7 +326,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                         child: CustomTextWidget(text: "Data :", fontSize: 14),
                       ),
                       CustomInputWidget(
-                          //controller: controller.newValueDataPointTypeTextController,
+                          controller: controller.dateDataPointTextController,
                           hintText: "Ex: 00/00/0000",
                           icon: Icons.date_range_outlined),
                       Spacer(),
@@ -273,6 +350,9 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                             ),
                             CustomButtonWidget(
                               text: "Cancelar",
+                              onPressed: (){
+                                Navigator.pop(context);
+                              },
                               color: AppColors.red,
                               padding: EdgeInsets.symmetric(horizontal: 25),
                             )
