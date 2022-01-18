@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/modules/athlete_profile/domain/entities/data_point_of_%20athlete_historic_entity.dart';
+import '/app/modules/athlete_profile/domain/entities/data_point_of_%20athlete_historic_entity.dart';
 import '/app/core/styles/app_colors.dart';
 import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart';
 import '/app/modules/athlete_profile/presentation/components/athlete_data_point_indicator_component.dart';
 import '/app/core/components/custom_text_widget.dart';
 
 class AthletesHistoryComponent extends StatelessWidget {
-  AthleteProfileController _athleteProfileController = Get.find<AthleteProfileController>();
+  AthletesHistoryComponent({this.onEditable, this.onDeleted});
+  void Function()? onDeleted;
+  void Function()? onEditable;
+  AthleteProfileController _athleteProfileController =
+      Get.find<AthleteProfileController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -25,10 +29,104 @@ class AthletesHistoryComponent extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: ListView.builder(
                           padding: EdgeInsets.only(top: 10),
-                          itemCount: _athleteProfileController.dataPoints.length,
+                          itemCount:
+                              _athleteProfileController.dataPoints.length,
                           itemBuilder: (context, index) {
-                            DataPointOfAthleteHistoricEntity _dataPoint = _athleteProfileController.dataPoints[index];
-                            return InkWell(
+                            DataPointOfAthleteHistoricEntity _dataPoint =
+                                _athleteProfileController.dataPoints[index];
+                            return GestureDetector(
+                              onLongPress: () {
+                                if (!_athleteProfileController.open.value) {
+                                  _athleteProfileController
+                                          .persistentBottomSheetController =
+                                      _athleteProfileController
+                                          .key.currentState!
+                                          .showBottomSheet(
+                                              (_) => Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.4,
+                                                  width: double.maxFinite,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          height: 6,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              color: AppColors
+                                                                  .mediumGrey),
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.2,
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(Icons
+                                                                  .settings),
+                                                              CustomTextWidget(
+                                                                  text:
+                                                                      "Gerenciar Ponto de Dado",
+                                                                  fontSize: 15),
+                                                            ]),
+                                                        SizedBox(height: 30),
+                                                        ListTile(
+                                                          onTap: onEditable,
+                                                          leading: Icon(Icons
+                                                              .calendar_today),
+                                                          title: CustomTextWidget(
+                                                              text:
+                                                                  "Editar Data do Ponto De Dado",
+                                                              fontSize: 14),
+                                                        ),
+                                                        Divider(
+                                                            color: AppColors
+                                                                .lightGrey,
+                                                            height: 20),
+                                                        ListTile(
+                                                          onTap: onDeleted,
+                                                          leading: Icon(
+                                                              Icons.delete),
+                                                          title: CustomTextWidget(
+                                                              text:
+                                                                  "Remover Ponto De Dado",
+                                                              fontSize: 14),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(30),
+                                                  topRight: Radius.circular(30),
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  AppColors.darkGrey);
+                                } else {
+                                  _athleteProfileController
+                                      .persistentBottomSheetController
+                                      .close();
+                                }
+                                _athleteProfileController.open.value =
+                                    !_athleteProfileController.open.value;
+                              },
                               onTap: () {
                                 if (_athleteProfileController
                                         .currentIndex.value ==
@@ -36,7 +134,8 @@ class AthletesHistoryComponent extends StatelessWidget {
                                   Map _data = {};
                                   _data["id"] = Get.arguments.id;
                                   _data["historic"] = _dataPoint;
-                                  Get.toNamed("/athlete_profile/historic", arguments: _data);
+                                  Get.toNamed("/athlete_profile/historic",
+                                      arguments: _data);
                                 }
                               },
                               child: Row(
@@ -56,7 +155,15 @@ class AthletesHistoryComponent extends StatelessWidget {
                                             horizontal: 5),
                                         child: Container(
                                             margin: index == 0
-                                                ? EdgeInsets.only(top: 10)
+                                                ? EdgeInsets.only(
+                                                    top: 10,
+                                                    bottom: index ==
+                                                            _athleteProfileController
+                                                                    .dataPoints
+                                                                    .length -
+                                                                1
+                                                        ? 10
+                                                        : 0)
                                                 : EdgeInsets.zero,
                                             height: 200,
                                             color: Colors.white),
@@ -72,6 +179,25 @@ class AthletesHistoryComponent extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                      (() {
+                                        if (index ==
+                                            _athleteProfileController
+                                                    .dataPoints.length -
+                                                1) {
+                                          return Align(
+                                            alignment: Alignment.bottomCenter,
+                                            child: Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: ShapeDecoration(
+                                                shape: CircleBorder(),
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        return Container();
+                                      }())
                                     ]),
                                   ),
                                   SizedBox(
@@ -92,19 +218,30 @@ class AthletesHistoryComponent extends StatelessWidget {
                                           children: [
                                             SizedBox(height: 20),
                                             CustomTextWidget(
-                                                text: "Data ${_dataPoint.date}"),
+                                                text:
+                                                    "Data ${_dataPoint.date}"),
                                             SizedBox(height: 10),
-                                          ((){
-                                            if(_dataPoint.values!.length > 3){
-                                              return   CustomTextWidget(
-                                              text: "ver mais + ${_dataPoint.values!.length - 3} items",
-                                              fontWeight: FontWeight.w600,
-                                            );
-                                            }
-                                            return CustomTextWidget(
-                                                text: "pressão 0000");
-                                          }())
-                                          
+                                            (() {
+                                              for (int count = 0;
+                                                  count <
+                                                      _dataPoint.values!.length;
+                                                  count++) {
+                                                if (count <= 3) {
+                                                  return CustomTextWidget(
+                                                      text:
+                                                          "${_dataPoint.values![count].type} ${_dataPoint.values![count].value}");
+                                                }
+                                              }
+                                              if (_dataPoint.values!.length >
+                                                  3) {
+                                                return CustomTextWidget(
+                                                  text:
+                                                      "ver mais + ${_dataPoint.values!.length - 3} items",
+                                                  fontWeight: FontWeight.w600,
+                                                );
+                                              }
+                                              return Container();
+                                            }())
                                           ],
                                         ),
                                         Spacer(),

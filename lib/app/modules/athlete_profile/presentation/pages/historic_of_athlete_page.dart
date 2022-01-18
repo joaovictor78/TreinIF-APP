@@ -42,7 +42,14 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
                 child: ListView.builder(
                   itemCount: _dataPoint.values!.length,
                   itemBuilder: (context, index) {
-                  return AthletesHistoryDataPointCard();
+                  return AthletesHistoryDataPointCard(
+                    onDeleted: (){
+
+                    },
+                    onEditable: (){
+                      showDialog(context, true);
+                    },
+                  );
                 }),
               )
             ],
@@ -50,7 +57,7 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
         ));
   }
 
-  void showDialog(BuildContext context) {
+  void showDialog(BuildContext context, [bool isEditable=false]) {
     showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "",
@@ -69,7 +76,7 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25, top: 16),
                         child: CustomTextWidget(
-                            text: "Adicionar novo dado",
+                            text: isEditable ? "Editar dado" : "Adicionar novo dado",
                             fontSize: 17,
                             fontWeight: FontWeight.w500),
                       ),

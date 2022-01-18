@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/app/core/components/custom_toast.dart';
 import '/app/core/styles/app_colors.dart';
@@ -37,4 +36,4 @@ class HistoricOfAthleteController extends GetxController{
     }
     //fazer logica pra adicionar o item a lista
   }
-}
+} 

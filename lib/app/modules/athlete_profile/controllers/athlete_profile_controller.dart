@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/modules/athlete_profile/data/dtos/data_point_of_athlete_historic_dto.dart';
 import '/app/modules/athlete_profile/domain/usecases/add_historic_of_athlete_usecase.dart';
 import '/app/core/components/custom_toast.dart';
 import '/app/core/styles/app_colors.dart';
@@ -11,6 +11,9 @@ class AthleteProfileController extends GetxController{
   AthleteProfileController({required this.getAthletesHistoryUseCase, required this.addHistoricOfAthleteUseCase});
   GetAthletesHistoryUseCase getAthletesHistoryUseCase;
   AddHistoricOfAthleteUseCase addHistoricOfAthleteUseCase;
+  late PersistentBottomSheetController persistentBottomSheetController;
+  GlobalKey<ScaffoldState> key = GlobalKey();
+  var open = false.obs;
  @override
   void onInit() { 
     getHistoricOfAthlete(Get.arguments.id);

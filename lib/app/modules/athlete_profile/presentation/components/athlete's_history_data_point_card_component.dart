@@ -4,6 +4,9 @@ import '/app/core/styles/app_colors.dart';
 import '/app/core/components/custom_text_widget.dart';
 
 class AthletesHistoryDataPointCard extends StatelessWidget {
+  AthletesHistoryDataPointCard({this.onEditable, this.onDeleted});
+  void Function()? onEditable;
+  void Function()? onDeleted;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,13 +25,13 @@ class AthletesHistoryDataPointCard extends StatelessWidget {
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: onEditable,
               icon: Icon(Icons.edit_rounded)),
           IconButton(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               padding: EdgeInsets.zero,
-              onPressed: () {},
+              onPressed: onDeleted,
               icon: Icon(Icons.delete))
         ],
       ),
