@@ -7,7 +7,7 @@ class AddValueDataPointOfHistoricOfAthleteRepository implements IAddValueDataPoi
   AddValueDataPointOfHistoricOfAthleteRepository(this._iAddValueDataPointOfHistoricOfAthleteDataSource);
   IAddValueDataPointOfHistoricOfAthleteDataSource _iAddValueDataPointOfHistoricOfAthleteDataSource;
   @override
-  Future<ReturnData> call(int athleteID, int dataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async {
+  Future<ReturnData<ValueDataPointOfAthleteHistoricEntity>> call(int athleteID, int dataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async {
     return await _iAddValueDataPointOfHistoricOfAthleteDataSource(athleteID, dataPointID, valueDataPoint);
   }
 }

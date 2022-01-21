@@ -6,7 +6,7 @@ class AddValueDataPointOfHistoricOfAthleteUseCase{
    AddValueDataPointOfHistoricOfAthleteUseCase(this._iAddValueDataPointOfHistoricOfAthleteRepository);
    IAddValueDataPointOfHistoricOfAthleteRepository _iAddValueDataPointOfHistoricOfAthleteRepository;
 
-   Future<ReturnData> call(int athleteID, int dataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async {
+   Future<ReturnData<ValueDataPointOfAthleteHistoricEntity>> call(int athleteID, int dataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async {
      return await _iAddValueDataPointOfHistoricOfAthleteRepository(athleteID, dataPointID, valueDataPoint);
    }
 }

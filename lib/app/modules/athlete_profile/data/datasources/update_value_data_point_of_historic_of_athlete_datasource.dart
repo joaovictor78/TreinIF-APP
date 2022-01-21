@@ -1,6 +1,5 @@
-import 'package:treinif/app/modules/athlete_profile/data/dtos/data_point_of_athlete_historic_dto.dart';
-import 'package:treinif/app/modules/athlete_profile/domain/entities/value_data_point_of_athlete_historic_entity.dart';
-
+import '/app/modules/athlete_profile/data/dtos/data_point_of_athlete_historic_dto.dart';
+import '/app/modules/athlete_profile/domain/entities/value_data_point_of_athlete_historic_entity.dart';
 import '/app/core/network/interfaces/i_http_client.dart';
 import '/app/core/utils/return_data.dart';
 import '/app/modules/athlete_profile/data/repositories/i_datasources/i_update_value_data_point_historic_of_athlete_datasource.dart';

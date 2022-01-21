@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/core/components/custom_input_widget.dart';
+import '/app/modules/athlete_profile/presentation/components/custom_data_point_modal_dialog_component.dart';
+import '/app/modules/athlete_profile/presentation/components/custom_workout_modal_dialog_component.dart';
 import '/app/domain/entitities/athlete_entity.dart';
 import '/app/core/components/custom_back_button_widget.dart';
 import '/app/core/components/custom_paint_widget.dart';
@@ -162,11 +163,9 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                           physics: NeverScrollableScrollPhysics(),
                           children: [
                             AthletesHistoryComponent(
-                              onDeleted: (){
-
-                              },
-                              onEditable: (){
-                                showDialogToAddDataPoint(context, true);
+                              onDeleted: () {},
+                              onEditable: () {
+                               // showDialogToAddDataPoint(context, true);
                               },
                             ),
                             AthleteWorkoutsComponent()
@@ -188,10 +187,10 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                     child: CustomButtonWidget(
                       onPressed: () {
                         if (controller.currentIndex.value == 0) {
-                          showDialogToAddDataPoint(context);
-                        } 
-                        if(controller.currentIndex.value == 1){
-                          showDialogToAddNewWorkout(context);
+                          customDataPointModalDialogComponent(context);
+                        }
+                        if (controller.currentIndex.value == 1) {
+                          customWorkoutModalDialogComponent(context);
                         }
                       },
                       child: Padding(
@@ -211,162 +210,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
           });
         }));
   }
-  void showDialogToAddNewWorkout(BuildContext context, [bool isEditable = false]) {
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: "",
-      context: context,
-      pageBuilder: (_, __, ___) {
-        if(!isEditable) controller.workoutNameTextController?.clear();
-        return Container(
-            padding: EdgeInsets.all(40),
-            alignment: Alignment.center,
-            child: Material(
-              color: AppColors.primaryColor.withAlpha(3),
-              child: Container(
-                  height: isEditable ? 250 : 310,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25, top: 16),
-                        child: CustomTextWidget(
-                            text: isEditable
-                                ? "Editar nome do treino"
-                                : "Adicionar novo treino",
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: 20
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: CustomTextWidget(text: "Nome :", fontSize: 14),
-                      ),
-                      CustomInputWidget(
-                          controller: controller.workoutNameTextController,
-                          hintText: "Ex: Treino1",
-                          icon: Icons.sports_volleyball_sharp),
-                      Spacer(),
-                      Container(
-                        padding: EdgeInsets.only(bottom: 20),
-                        alignment: Alignment.bottomCenter,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            CustomButtonWidget(
-                              text: isEditable ? "Confirmar" : "Adicionar",
-                              onPressed: () {
-                                //controller.addValueDataPoint(athleteID, _dataPoint.id!);
-                              },
-                              color: AppColors.mediumGreen,
-                              padding: EdgeInsets.symmetric(horizontal: 25),
-                            ),
-                            SizedBox(
-                              width: 25,
-                            ),
-                            CustomButtonWidget(
-                              text: "Cancelar",
-                              color: AppColors.red,
-                              padding: EdgeInsets.symmetric(horizontal: 25),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.darkGrey,
-                    borderRadius: BorderRadius.circular(20),
-                  )),
-            ));
-      },
-    );
-  }
-  void showDialogToAddDataPoint(BuildContext context, [bool isEditable = false]) {
-    showGeneralDialog(
-      barrierDismissible: true,
-      barrierLabel: "",
-      context: context,
-      pageBuilder: (_, __, ___) {
-         if(!isEditable) controller.dateDataPointTextController?.clear();
-        return Container(
-            padding: EdgeInsets.all(40),
-            alignment: Alignment.center,
-            child: Material(
-              color: AppColors.primaryColor.withAlpha(3),
-              child: Container(
-                  height: isEditable ? 250 : 310,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25, top: 16),
-                        child: CustomTextWidget(
-                            text: isEditable
-                                ? "Editar ponto de dado"
-                                : "Adicionar novo ponto de dado",
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 25, top: 5, bottom: 10),
-                        child: isEditable
-                            ? Container()
-                            : CustomTextWidget(
-                                text:
-                                    "Atraves do ponto de dados, você poderá\ncontrolar a evolução de variaveis como peso, altura etc: ",
-                                fontSize: 12),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: CustomTextWidget(text: "Data :", fontSize: 14),
-                      ),
-                      CustomInputWidget(
-                          controller: controller.dateDataPointTextController,
-                          hintText: "Ex: 00/00/0000",
-                          icon: Icons.date_range_outlined),
-                      Spacer(),
-                      Container(
-                        padding: EdgeInsets.only(bottom: 20),
-                        alignment: Alignment.bottomCenter,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            CustomButtonWidget(
-                              text: isEditable ? "Confirmar" : "Adicionar",
-                              onPressed: () {
-                                //controller.addValueDataPoint(athleteID, _dataPoint.id!);
-                              },
-                              color: AppColors.mediumGreen,
-                              padding: EdgeInsets.symmetric(horizontal: 25),
-                            ),
-                            SizedBox(
-                              width: 25,
-                            ),
-                            CustomButtonWidget(
-                              text: "Cancelar",
-                              onPressed: (){
-                                Navigator.pop(context);
-                              },
-                              color: AppColors.red,
-                              padding: EdgeInsets.symmetric(horizontal: 25),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.darkGrey,
-                    borderRadius: BorderRadius.circular(20),
-                  )),
-            ));
-      },
-    );
-  }
+
+  
+  
 }

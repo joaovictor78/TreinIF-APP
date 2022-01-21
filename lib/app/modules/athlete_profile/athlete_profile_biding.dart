@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
-import 'package:treinif/app/modules/athlete_profile/data/datasources/add_individual_workout_datasource.dart';
-import 'package:treinif/app/modules/athlete_profile/data/repositories/add_individual_workout_repository.dart';
-import 'package:treinif/app/modules/athlete_profile/domain/usecases/add_individual_workout_usecase.dart';
+import 'package:treinif/app/modules/athlete_profile/data/datasources/remove_value_data_point_of_historic_of_athlete_datasource.dart';
+import 'package:treinif/app/modules/athlete_profile/data/repositories/remove_value_data_point_of_historic_of_athlete_repository.dart';
+import 'package:treinif/app/modules/athlete_profile/domain/usecases/remove_value_data_point_of_historic_of_athlete_usecase.dart';
+import '/app/modules/athlete_profile/data/datasources/update_value_data_point_of_historic_of_athlete_datasource.dart';
+import '/app/modules/athlete_profile/data/repositories/update_value_data_point_of_historic_of_athlete_repository.dart';
+import '/app/modules/athlete_profile/data/datasources/add_individual_workout_datasource.dart';
+import '/app/modules/athlete_profile/data/repositories/add_individual_workout_repository.dart';
+import '/app/modules/athlete_profile/domain/usecases/add_individual_workout_usecase.dart';
+import '/app/modules/athlete_profile/domain/usecases/update_value_data_point_of_historic_of_athlete_usecase.dart';
 import '/app/modules/athlete_profile/data/datasources/remove_individual_workout_datasource.dart';
 import '/app/modules/athlete_profile/data/repositories/remove_individual_workout_repository.dart';
 import '/app/modules/athlete_profile/domain/usecases/remove_individual_workout_usecase.dart';
@@ -100,7 +106,18 @@ class AthleteProfileBiding extends Bindings {
         Get.find<AddValueDataPointOfHistoricOfAthleteDataSource>()));
     Get.lazyPut(() => AddValueDataPointOfHistoricOfAthleteUseCase(
         Get.find<AddValueDataPointOfHistoricOfAthleteRepository>()));
+    
+    Get.lazyPut(() => UpdateValueDataPointOfHistoricOfAthleteDataSource(Get.find<CustomDio>()));
+    Get.lazyPut(() => UpdateValueDataPointOfHistoricOfAthleteRepository(Get.find<UpdateValueDataPointOfHistoricOfAthleteDataSource>()));
+    Get.lazyPut(() => UpdateValueDataPointOfHistoricOfAthleteUseCase(Get.find<UpdateValueDataPointOfHistoricOfAthleteRepository>()));
+    
+    Get.lazyPut(() => RemoveValueDataPointOfHistoricOfAthleteDataSource(Get.find<CustomDio>()));
+    Get.lazyPut(() => RemoveValueDataPointOfHistoricOfAthleteRepository(Get.find<RemoveValueDataPointOfHistoricOfAthleteDataSource>()));
+    Get.lazyPut(() => RemoveValueDataPointOfHistoricOfAthleteUseCase(Get.find<RemoveValueDataPointOfHistoricOfAthleteRepository>()));
+
     Get.lazyPut(() => HistoricOfAthleteController(
-        addValueDataPointOfHistoricOfAthleteUseCase: Get.find()));
+        addValueDataPointOfHistoricOfAthleteUseCase: Get.find(), 
+        updateValueDataPointOfHistoricOfAthleteUseCase:  Get.find(),
+        removeValueDataPointOfHistoricOfAthleteUseCase: Get.find()));
   }
 }

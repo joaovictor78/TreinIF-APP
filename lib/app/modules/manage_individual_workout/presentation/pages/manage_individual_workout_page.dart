@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '/app/modules/manage_individual_workout/controllers/manage_individual_workout_controller.dart';
 import '/app/core/components/custom_calendar.dart';
 import '/app/core/components/custom_workout_card_widget.dart';
@@ -115,7 +118,9 @@ Widget trainingListByTeam() {
             startDate: startDate,
             endDate: endDate,
             selectedDate: selectedDate,
-            onDateSelected: (DateTime data) => {},
+            onDateSelected: (DateTime data) => {
+               print(DateFormat('EEEE').format(data))
+            },
             dateTileBuilder: dateTileBuilder,
             iconColor: Colors.black,
             monthNameWidget: _monthNameWidget,

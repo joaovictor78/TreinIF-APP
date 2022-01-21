@@ -8,11 +8,11 @@ class AddValueDataPointOfHistoricOfAthleteDataSource implements IAddValueDataPoi
   AddValueDataPointOfHistoricOfAthleteDataSource(this._client);
   IHttpClient _client;
   @override
-  Future<ReturnData> call(int athleteID, int dataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async {
+  Future<ReturnData<ValueDataPointOfAthleteHistoricEntity>> call(int athleteID, int dataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async {
       try{
         Values value = Values(type: valueDataPoint.type, value: valueDataPoint.value);
-        await _client.post("/athletes/$athleteID/historic/data-point/$dataPointID", data: value.toJson());
-        return ReturnData(true);
+        final response = await _client.post("/athletes/$athleteID/historic/data-point/$dataPointID", data: value.toJson());
+        return ReturnData(true, data: Values.fromJson(response.data));
       } catch(error){
         return ReturnData(false);
       }

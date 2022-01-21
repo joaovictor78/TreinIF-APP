@@ -6,7 +6,7 @@ class UpdateIndividualWorkoutStatusRepository implements IUpdateIndividualWorkou
   UpdateIndividualWorkoutStatusRepository(this._iUpdateWorkoutStatusDataSource);
   IUpdateIndividualWorkoutStatusDataSource _iUpdateWorkoutStatusDataSource;
 
-  Future<ReturnData> call(int workoutID) async { 
-    return await _iUpdateWorkoutStatusDataSource(workoutID);
+  Future<ReturnData> call(int athleteID, int workoutID) async { 
+    return await _iUpdateWorkoutStatusDataSource(athleteID, workoutID);
   }
 }

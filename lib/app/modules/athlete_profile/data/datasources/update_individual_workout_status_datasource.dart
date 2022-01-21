@@ -8,9 +8,9 @@ class UpdateIndividualWorkoutStatusDataSource implements IUpdateIndividualWorkou
   UpdateIndividualWorkoutStatusDataSource(this._client);
 
   @override
-  Future<ReturnData> call(workoutID) async {
+  Future<ReturnData> call(int athleteID, int workoutID) async {
      try{
-       await _client.put("/individual/workouts/$workoutID/activate");
+       await _client.put("/athletes/$athleteID/individual/workouts/$workoutID/activate");
        return ReturnData(true);
      } catch(error){
        return ReturnData(false);

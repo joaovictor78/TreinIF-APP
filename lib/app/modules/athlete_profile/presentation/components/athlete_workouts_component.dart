@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/domain/entitities/individual_workout_entity.dart';
 import '/app/core/components/custom_workout_check_card_widget.dart';
 import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart';
 import '/app/core/components/custom_text_widget.dart';
@@ -30,11 +31,17 @@ class AthleteWorkoutsComponent extends StatelessWidget {
                     : ListView.builder(
                         padding: EdgeInsets.only(top: 10),
                         itemCount: _athleteProfileController.workouts.length,
-                        itemBuilder: (_, __) {
+                        itemBuilder: (_, index) {
+                          IndividualWorkoutEntity individualWorkout =  _athleteProfileController.workouts[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            child: CustomWorkoutCheckCardWidget(onTap: () {
+                            child: CustomWorkoutCheckCardWidget(
+                              individualWorkout: individualWorkout,
+                              onCheck: (){
+                                _athleteProfileController.updateIndividualWorkoutStatus(index);
+                              },
+                              onTap: () {
                               Get.toNamed("/manage_individual_workout");
                             }),
                           );

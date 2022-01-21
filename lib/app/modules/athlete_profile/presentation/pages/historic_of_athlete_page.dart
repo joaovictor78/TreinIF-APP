@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '/app/modules/athlete_profile/controllers/historic_of_athlete_controller.dart';
-import '/app/modules/athlete_profile/domain/entities/data_point_of_%20athlete_historic_entity.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_input_widget.dart';
 import '/app/core/styles/app_colors.dart';
@@ -11,7 +10,6 @@ import "/app/modules/athlete_profile/presentation/components/athlete's_history_d
 import '/app/core/components/custom_back_button_widget.dart';
 
 class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
-  DataPointOfAthleteHistoricEntity _dataPoint = Get.arguments["historic"];
   int athleteID = Get.arguments["id"];
   @override
   Widget build(BuildContext context) {
@@ -36,11 +34,11 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
             children: [
               SizedBox(height: 30),
               CustomTextWidget(text: "Historico do Atleta", fontSize: 18),
-              CustomTextWidget(text: "Data ${_dataPoint.date}"),
+              CustomTextWidget(text: "Data ${controller.dataPointSelected.date}"),
               SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
-                  itemCount: _dataPoint.values!.length,
+                  itemCount: controller.dataPointSelected.values!.length,
                   itemBuilder: (context, index) {
                   return AthletesHistoryDataPointCard(
                     onDeleted: (){
@@ -115,7 +113,7 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
                             CustomButtonWidget(
                               text: "Adicionar",
                               onPressed: (){
-                                controller.addValueDataPoint(athleteID, _dataPoint.id!);
+                                controller.addValueDataPoint(athleteID, controller.dataPointSelected.id!);
                               },
                               color: AppColors.mediumGreen,
                               padding: EdgeInsets.symmetric(horizontal: 25),

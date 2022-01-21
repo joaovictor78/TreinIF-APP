@@ -5,7 +5,7 @@ class UpdateIndividualWorkoutStatusUseCase{
   IUpdateIndividualWorkoutStatusRepository _iUpdateWorkoutStatusRepository;
   UpdateIndividualWorkoutStatusUseCase(this._iUpdateWorkoutStatusRepository);
   
-  Future<ReturnData> call(int workoutID) async {
-    return await _iUpdateWorkoutStatusRepository(workoutID);
+  Future<ReturnData> call(int athleteID, int workoutID) async {
+    return await _iUpdateWorkoutStatusRepository(athleteID, workoutID);
   }
 }

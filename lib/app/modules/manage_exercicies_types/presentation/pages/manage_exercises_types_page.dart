@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '/app/modules/manage_exercicies_types/controllers/manage_exercises_types_controller.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_input_widget.dart';
 import '/app/core/styles/app_colors.dart';
@@ -7,7 +9,7 @@ import '/app/core/components/custom_text_widget.dart';
 import "/app/modules/athlete_profile/presentation/components/athlete's_history_data_point_card_component.dart";
 import '/app/core/components/custom_back_button_widget.dart';
 
-class ManageExercisesTypesPage extends StatelessWidget {
+class ManageExercisesTypesPage extends GetView<ManageExercisesTypesController> {
 
   @override
   Widget build(BuildContext context) {
