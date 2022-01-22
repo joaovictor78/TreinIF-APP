@@ -23,34 +23,50 @@ class ManageIndividualWorkoutPage
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 27),
-                        child: CustomTextWidget(
-                            text: "Treino Individual", fontSize: 20),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 27),
-                        child: CustomTextWidget(
-                            text: "Atleta: Joao Victor", fontSize: 15),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      trainingListByTeam()
-                    ]))));
+                child:  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 27),
+                          child: CustomTextWidget(
+                              text: "Treino Individual", fontSize: 20),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 27),
+                          child: CustomTextWidget(
+                              text: "Atleta: Joao Victor", fontSize: 15),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ), 
+                        trainingListByTeam(context),
+                        
+                        Expanded(
+                            child: ListView.separated(
+                                //shrinkWrap: true,
+                                itemCount: 20,
+                                itemBuilder: (context, index) =>
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                      child: CustomWorkoutWidget(),
+                                    ),
+                                    separatorBuilder: (_, __) => Container(height: 10,),
+                              ),
+                          ),
+                        
+                      ]),
+                )));
   }
 }
 
-Widget trainingListByTeam() {
+Widget trainingListByTeam(BuildContext context) {
   DateTime startDate = DateTime.now().subtract(Duration(days: 360));
   DateTime endDate = DateTime.now().add(Duration(days: 360));
-  DateTime selectedDate = DateTime.now().subtract(Duration(days: 2));
+  ManageIndividualWorkoutController controller =
+      Get.find<ManageIndividualWorkoutController>();
 
   _monthNameWidget(monthName) {
     return Container(
@@ -94,43 +110,37 @@ Widget trainingListByTeam() {
     );
   }
 
-  return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 27),
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomTextWidget(
-                text: "Treino", fontSize: 15, fontWeight: FontWeight.w600),
-            OutlinedButton(
-                child: CustomTextWidget(text: "Adicionar exercícios"),
-                onPressed: () {
-                  Get.toNamed("/add_exercise");
-                },
-                style: OutlinedButton.styleFrom(
-                    side: BorderSide(width: 1.0, color: Colors.white))),
-          ],
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 27),
+    child: Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomTextWidget(
+              text: "Treino", fontSize: 15, fontWeight: FontWeight.w600),
+          OutlinedButton(
+              child: CustomTextWidget(text: "Adicionar exercícios"),
+              onPressed: () {
+                Get.toNamed("/add_exercise");
+              },
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(width: 1.0, color: Colors.white))),
+        ],
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: CalendarStrip(
+          containerHeight: 100,
+          startDate: startDate,
+          endDate: endDate,
+          selectedDate: controller.selectedDate,
+          onDateSelected: (DateTime data) =>
+              {print(DateFormat('EEEE').format(data))},
+          dateTileBuilder: dateTileBuilder,
+          iconColor: Colors.black,
+          monthNameWidget: _monthNameWidget,
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 15),
-          child: CalendarStrip(
-            containerHeight: 100,
-            startDate: startDate,
-            endDate: endDate,
-            selectedDate: selectedDate,
-            onDateSelected: (DateTime data) => {
-               print(DateFormat('EEEE').format(data))
-            },
-            dateTileBuilder: dateTileBuilder,
-            iconColor: Colors.black,
-            monthNameWidget: _monthNameWidget,
-          ),
-        ),
-        ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (context, index) => CustomWorkoutWidget(),
-            separatorBuilder: (context, index) =>
-                Padding(padding: EdgeInsets.all(10)),
-            itemCount: 2)
-      ]));
+      ),
+    ]),
+  );
 }

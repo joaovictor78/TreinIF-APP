@@ -8,7 +8,7 @@ class UpdateDateDataPointOfHistoricOfAthleteDataSource implements IUpdateDateDat
   @override
   Future<ReturnData> call(int athleteID, int dataPointID, String date) async {
     try{
-      await _client.put("/athletes/$athleteID/historic/data-point/$dataPointID", data: {"date": date });
+      await _client.put("/athletes/$athleteID/historic/data-points/$dataPointID", data: {"date": date });
       return ReturnData(true);
     } catch(error){
       return ReturnData(false);

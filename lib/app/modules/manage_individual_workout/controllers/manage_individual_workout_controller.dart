@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '/app/domain/entitities/athlete_entity.dart';
 import '/app/modules/manage_individual_workout/domain/usecases/remove_exercise_usecase.dart';
 import '/app/core/components/custom_toast.dart';
 import '/app/core/enums/exercise_classification_enum.dart';
@@ -11,7 +13,17 @@ class ManageIndividualWorkoutController extends GetxController{
   GetExercisesByDayOfWeekUseCase getExercisesByDayOfWeekUseCase;
   RemoveExerciseUseCase removeExerciseUseCase;
   var exercises = <ExerciseEntity>[].obs;
-
+  DateTime selectedDate = DateTime.now().subtract(Duration(days: 2));
+  late AthleteEntity athleteEntity;
+  late int workoutID;
+  @override 
+  onInit() {
+    athleteEntity = Get.arguments["athlete_data"];
+    workoutID = Get.arguments["workout_id"];
+    getExercisesByDayOfWeek(workoutID, DateFormat('EEEE').format(selectedDate));
+    print(DateFormat('EEEE').format(selectedDate));
+    super.onInit();
+  }
   getExercisesByDayOfWeek(int workoutID, String dayOfWeek) async {
     final response = await getExercisesByDayOfWeekUseCase(workoutID, dayOfWeek, ExerciseClassificationEnum.individual.value);
     if(!response.success){

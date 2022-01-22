@@ -10,9 +10,9 @@ class AddHistoricOfAthleteDataSource implements IAddHistoricOfAthleteDataSource{
   @override
   Future<ReturnData> call(int athleteID, DataPointOfAthleteHistoricEntity dataPoint) async{
     try{
-      DataPointOfAthleteHistoricDTO _dataPointDTO = DataPointOfAthleteHistoricDTO(id: dataPoint.id, values: dataPoint.values);
-      await _client.post("/athletes/$athleteID/historic", data: _dataPointDTO.toJson());
-      return ReturnData(true);
+      DataPointOfAthleteHistoricDTO _dataPointDTO = DataPointOfAthleteHistoricDTO(date: dataPoint.date);
+      final response = await _client.post("/athletes/$athleteID/historic", data: _dataPointDTO.toJson());
+      return ReturnData(true, data: DataPointOfAthleteHistoricDTO.fromJson(response.data));
     } catch(error){
       return ReturnData(false);
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:treinif/app/domain/entitities/athlete_entity.dart';
 import '/app/modules/athlete_profile/domain/usecases/get_all_individual_workouts_of_athlete_usecase.dart';
 import '/app/modules/athlete_profile/data/datasources/remove_data_point_of_historic_of_athlete_datasource.dart';
 import '/app/modules/athlete_profile/domain/usecases/remove_individual_workout_usecase.dart';
@@ -44,9 +45,11 @@ class AthleteProfileController extends GetxController {
   GlobalKey<ScaffoldState> key = GlobalKey();
   var open = false.obs;
   late int athleteID;
+  late AthleteEntity athleteEntity;
   @override
   void onInit() {
     athleteID = Get.arguments.id;
+    athleteEntity = Get.arguments;
     getHistoricOfAthlete(Get.arguments.id);
     getIndividualWorkoutsOfAthlete(Get.arguments.id);
     workoutNameTextController = TextEditingController();
@@ -90,14 +93,16 @@ class AthleteProfileController extends GetxController {
     isLoading.value = false;
   }
 
-  addHistoricOfAthlete(DataPointOfAthleteHistoricEntity dataPoint) async {
+  addHistoricOfAthlete() async {
+    String date = dateDataPointTextController!.text;
     final response =
-        await addHistoricOfAthleteUseCase(Get.arguments.id, dataPoint);
+        await addHistoricOfAthleteUseCase(athleteID, DataPointOfAthleteHistoricEntity(date: date));
     if (!response.success) {
       return CustomToast.showToast(
           "Ocorreu um erro ao adicionar o ponto de dados!",
           backgroundColor: AppColors.red);
     }
+    dataPoints.add(response.data);
   }
 
   addIndividualWorkout() async {
@@ -118,6 +123,7 @@ class AthleteProfileController extends GetxController {
       return CustomToast.showToast("Ocorreu um erro ao atualizar a data do ponto de dados");
     }
     dataPoints[index].date = newDateDataPoint;
+    persistentBottomSheetController.close();
   }
 
   updateIndividualWorkoutName(int workoutID, int index) async {
@@ -127,6 +133,7 @@ class AthleteProfileController extends GetxController {
       return CustomToast.showToast("Ocorreu um erro ao atualizar o nome do treino!", backgroundColor: AppColors.red);
     }
     workouts[index].name = newWorkoutName;
+    persistentBottomSheetController.close();
   }
   updateIndividualWorkoutStatus(int index) async {
     final response = await updateIndividualWorkoutStatusUseCase(
@@ -149,6 +156,8 @@ class AthleteProfileController extends GetxController {
       return CustomToast.showToast("Ocorreu um erro ao remover o ponto de dados!");
     }
     dataPoints.removeWhere((element) => element.id == dataPointID);
+    persistentBottomSheetController.close();
+    CustomToast.showToast("Ponto de Dados removido com sucesso!", backgroundColor: AppColors.mediumGreen);
   }
   removeIndividualWorkout(int individualWorkoutID) async {
     final response = await removeIndividualWorkoutUseCase(individualWorkoutID);
@@ -156,5 +165,7 @@ class AthleteProfileController extends GetxController {
       return CustomToast.showToast("Ocorreu um erro ao remover o treino individual!", backgroundColor: AppColors.red);
     }
     workouts.removeWhere((element) => element.id == individualWorkoutID);
+    persistentBottomSheetController.close();
+    CustomToast.showToast("Treino Individual removido com sucesso!", backgroundColor: AppColors.mediumGreen);
   }
 }

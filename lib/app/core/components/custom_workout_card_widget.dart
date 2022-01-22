@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:treinif/app/core/components/custom_text_widget.dart';
-import 'package:treinif/app/core/styles/app_colors.dart';
+import '/app/core/components/custom_text_widget.dart';
+import '/app/core/styles/app_colors.dart';
 
 class CustomWorkoutWidget extends StatelessWidget {
   @override

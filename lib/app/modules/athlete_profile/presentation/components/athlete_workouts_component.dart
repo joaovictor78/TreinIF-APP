@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:treinif/app/core/styles/app_colors.dart';
+import 'package:treinif/app/modules/athlete_profile/presentation/components/custom_workout_modal_dialog_component.dart';
 import '/app/domain/entitities/individual_workout_entity.dart';
 import '/app/core/components/custom_workout_check_card_widget.dart';
 import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart';
@@ -36,14 +38,115 @@ class AthleteWorkoutsComponent extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            child: CustomWorkoutCheckCardWidget(
-                              individualWorkout: individualWorkout,
-                              onCheck: (){
-                                _athleteProfileController.updateIndividualWorkoutStatus(index);
+                            child: GestureDetector(
+                              onLongPress: () {
+                                if (!_athleteProfileController.open.value) {
+                                  _athleteProfileController
+                                          .persistentBottomSheetController =
+                                      _athleteProfileController
+                                          .key.currentState!
+                                          .showBottomSheet(
+                                              (_) => Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.4,
+                                                  width: double.maxFinite,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          height: 6,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              color: AppColors
+                                                                  .mediumGrey),
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.2,
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(Icons
+                                                                  .settings),
+                                                              CustomTextWidget(
+                                                                  text:
+                                                                      "Gerenciar Treino Individual",
+                                                                  fontSize: 15),
+                                                            ]),
+                                                        SizedBox(height: 30),
+                                                        ListTile(
+                                                          onTap: (){
+                                                            customWorkoutModalDialogComponent(context, true, index);
+                                                          },
+                                                          leading: Icon(Icons
+                                                              .sort_by_alpha),
+                                                          title: CustomTextWidget(
+                                                              text:
+                                                                  "Editar Nome do Treino",
+                                                              fontSize: 14),
+                                                        ),
+                                                        Divider(
+                                                            color: AppColors
+                                                                .lightGrey,
+                                                            height: 20),
+                                                        ListTile(
+                                                          onTap: (){
+                                                             _athleteProfileController.removeIndividualWorkout(individualWorkout.id!);
+                                                          },
+                                                          leading: Icon(
+                                                              Icons.delete),
+                                                          title: CustomTextWidget(
+                                                              text:
+                                                                  "Remover Treino",
+                                                              fontSize: 14),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(30),
+                                                  topRight: Radius.circular(30),
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  AppColors.darkGrey);
+                                } else {
+                                  _athleteProfileController
+                                      .persistentBottomSheetController
+                                      .close();
+                                }
+                                _athleteProfileController.open.value =
+                                    !_athleteProfileController.open.value;
                               },
-                              onTap: () {
-                              Get.toNamed("/manage_individual_workout");
-                            }),
+                              child: CustomWorkoutCheckCardWidget(
+                                individualWorkout: individualWorkout,
+                                onCheck: (){
+                                  _athleteProfileController.updateIndividualWorkoutStatus(index);
+                                },
+                                onTap: () {
+                                        Map _data = {};
+                                _data["athlete_data"] = _athleteProfileController.athleteEntity;
+                                _data["workout_id"] = individualWorkout.id;
+                                Get.toNamed("/manage_individual_workout", arguments: _data);
+                              }),
+                            ),
                           );
                         }))
       ],

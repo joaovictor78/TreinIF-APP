@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:treinif/app/modules/athlete_profile/presentation/components/custom_data_point_modal_dialog_component.dart';
 import '/app/modules/athlete_profile/domain/entities/data_point_of_%20athlete_historic_entity.dart';
 import '/app/core/styles/app_colors.dart';
 import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart';
@@ -7,9 +8,7 @@ import '/app/modules/athlete_profile/presentation/components/athlete_data_point_
 import '/app/core/components/custom_text_widget.dart';
 
 class AthletesHistoryComponent extends StatelessWidget {
-  AthletesHistoryComponent({this.onEditable, this.onDeleted});
-  void Function()? onDeleted;
-  void Function()? onEditable;
+  AthletesHistoryComponent();
   AthleteProfileController _athleteProfileController =
       Get.find<AthleteProfileController>();
   @override
@@ -87,7 +86,9 @@ class AthletesHistoryComponent extends StatelessWidget {
                                                             ]),
                                                         SizedBox(height: 30),
                                                         ListTile(
-                                                          onTap: onEditable,
+                                                          onTap: (){
+                                                            customDataPointModalDialogComponent(context, true, index, _dataPoint.id!);
+                                                          },
                                                           leading: Icon(Icons
                                                               .calendar_today),
                                                           title: CustomTextWidget(
@@ -100,7 +101,9 @@ class AthletesHistoryComponent extends StatelessWidget {
                                                                 .lightGrey,
                                                             height: 20),
                                                         ListTile(
-                                                          onTap: onDeleted,
+                                                          onTap: (){
+                                                            _athleteProfileController.removeHistoricOfAthlete(_dataPoint.id!);
+                                                          },
                                                           leading: Icon(
                                                               Icons.delete),
                                                           title: CustomTextWidget(
@@ -222,6 +225,9 @@ class AthletesHistoryComponent extends StatelessWidget {
                                                     "Data ${_dataPoint.date}"),
                                             SizedBox(height: 10),
                                             (() {
+                                              if(_dataPoint.values == null){
+                                                return Container();
+                                              }
                                               for (int count = 0;
                                                   count <
                                                       _dataPoint.values!.length;

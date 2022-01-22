@@ -7,15 +7,14 @@ import '/app/core/components/custom_text_widget.dart';
 import '/app/core/styles/app_colors.dart';
 import '/app/modules/athlete_profile/controllers/athlete_profile_controller.dart';
 
-void customDataPointModalDialogComponent(BuildContext context,
-      [bool isEditable = false]) {
+void customDataPointModalDialogComponent(BuildContext context, 
+      [bool isEditable = false, int index=0, int dataPointID=0]) {
     AthleteProfileController controller = Get.find<AthleteProfileController>();
     showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "",
       context: context,
       pageBuilder: (_, __, ___) {
-        if (!isEditable) controller.dateDataPointTextController?.clear();
         return Container(
             padding: EdgeInsets.all(40),
             alignment: Alignment.center,
@@ -63,7 +62,14 @@ void customDataPointModalDialogComponent(BuildContext context,
                           children: [
                             CustomButtonWidget(
                               text: isEditable ? "Confirmar" : "Adicionar",
-                              onPressed: () {},
+                              onPressed: () {
+                                if(isEditable){
+                                  controller.updateHistoricOfAthleteDate(dataPointID, index);
+                                } else{
+                                   controller.addHistoricOfAthlete();
+                                }
+                                Navigator.pop(context);
+                              },
                               color: AppColors.mediumGreen,
                               padding: EdgeInsets.symmetric(horizontal: 25),
                             ),

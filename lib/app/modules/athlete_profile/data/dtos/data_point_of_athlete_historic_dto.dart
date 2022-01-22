@@ -19,12 +19,10 @@ class DataPointOfAthleteHistoricDTO extends DataPointOfAthleteHistoricEntity{
     }
   }
 
-  List<Map<String, dynamic>>? toJson() {
+  Map<String, dynamic>? toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.values != null) {
-     return this.values?.map((item) => Values(id: item.id, type: item.type, value: item.value).toJson()).toList();
-    }
-    return [];
+    data["date"] = date;
+    return data;
   }
 }
 

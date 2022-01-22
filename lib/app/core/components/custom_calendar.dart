@@ -304,7 +304,7 @@ class CalendarStripState extends State<CalendarStrip>
             onHorizontalDragEnd: (DragEndDetails details) =>
                 onStripDrag(details),
             child: 
-              Expanded(child: Row(children: currentWeekRow)),
+              Row(children: currentWeekRow),
               
           ))
     ]);
