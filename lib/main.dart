@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:treinif/app/modules/manage_individual_workout/manage_individual_workout_biding.dart';
+import '/app/modules/manage_individual_workout/manage_individual_workout_biding.dart';
 import '/app/modules/add_exercises_to_workout/add_exercises_to_workout_biding.dart';
 import '/app/modules/manage_exercicies_types/presentation/pages/manage_exercises_types_page.dart';
 import '/app/modules/manage_individual_workout/presentation/pages/manage_individual_workout_page.dart';

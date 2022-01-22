@@ -8,8 +8,8 @@ class AppBinding implements Bindings {
   @override
   void dependencies() {
     Get.put(Dio());
-    Get.put(CustomDio(Get.find(), "https://treinif-api.herokuapp.com"));
+    Get.put(CustomDio(Get.find(), "https://treinif-api.herokuapp.com"));  
     Get.lazyPut(() => LoginRepository(Get.find<CustomDio>()));
     Get.lazyPut(() => LoginController(Get.find<LoginRepository>()));
-  }
+  } 
 }

@@ -24,7 +24,14 @@ class AthletesHistoryComponent extends StatelessWidget {
           Expanded(
               child: _athleteProfileController.isLoading.value
                   ? Center(child: CircularProgressIndicator())
-                  : Padding(
+                  : _athleteProfileController.dataPoints.isEmpty
+                    ? Container(
+                      padding: EdgeInsets.only(top: 70),
+                      alignment: Alignment.topCenter,
+                        child: CustomTextWidget(
+                            text:
+                                "Nenhum ponto de dados encontrado, adicione-os\nao historico!", textAlign: TextAlign.center))
+                    : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: ListView.builder(
                           padding: EdgeInsets.only(top: 10),

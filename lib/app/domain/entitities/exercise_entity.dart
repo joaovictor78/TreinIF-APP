@@ -1,3 +1,5 @@
+import 'package:treinif/app/modules/manage_individual_workout/data/dtos/exercises_dto.dart';
+
 import '/app/domain/entitities/exercise_type_entity.dart';
 
 class ExerciseEntity{

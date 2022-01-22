@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '/app/domain/entitities/exercise_entity.dart';
 import '/app/modules/manage_individual_workout/controllers/manage_individual_workout_controller.dart';
 import '/app/core/components/custom_calendar.dart';
 import '/app/core/components/custom_workout_card_widget.dart';
@@ -22,43 +21,47 @@ class ManageIndividualWorkoutPage
             title: CustomBackButtonWidget()),
         body: SafeArea(
             child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:  Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 27),
-                          child: CustomTextWidget(
-                              text: "Treino Individual", fontSize: 20),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 27),
-                          child: CustomTextWidget(
-                              text: "Atleta: Joao Victor", fontSize: 15),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ), 
-                        trainingListByTeam(context),
-                        
-                        Expanded(
-                            child: ListView.separated(
-                                //shrinkWrap: true,
-                                itemCount: 20,
-                                itemBuilder: (context, index) =>
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                                      child: CustomWorkoutWidget(),
-                                    ),
-                                    separatorBuilder: (_, __) => Container(height: 10,),
-                              ),
-                          ),
-                        
-                      ]),
-                )));
+          padding: const EdgeInsets.all(8.0),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 27),
+              child: CustomTextWidget(text: "Treino Individual", fontSize: 20),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 27),
+              child: CustomTextWidget(
+                  text: "Atleta: ${controller.athleteEntity.name}",
+                  fontSize: 15),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            trainingListByTeam(context),
+            Obx(
+               () {
+                return Expanded(
+                  child: controller.exercises.isEmpty ? Center(child: CustomTextWidget(text: "Nenhum treino encontrado, adicione-os!")) : ListView.separated(
+                    itemCount: controller.exercises.length,
+                    itemBuilder: (context, index) {
+                      ExerciseEntity exercise = controller.exercises[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: CustomWorkoutWidget(exercise),
+                      );
+                    },
+                    separatorBuilder: (_, __) => Container(
+                      height: 10,
+                    ),
+                  ),
+                );
+              }
+            ),
+          ]),
+        )));
   }
 }
 
@@ -134,8 +137,11 @@ Widget trainingListByTeam(BuildContext context) {
           startDate: startDate,
           endDate: endDate,
           selectedDate: controller.selectedDate,
-          onDateSelected: (DateTime data) =>
-              {print(DateFormat('EEEE').format(data))},
+          onDateSelected: (DateTime data) => {
+            print(DateFormat('EEEE').format(data)),
+            controller.getExercisesByDayOfWeek(
+                controller.workoutID, DateFormat('EEEE').format(data))
+          },
           dateTileBuilder: dateTileBuilder,
           iconColor: Colors.black,
           monthNameWidget: _monthNameWidget,

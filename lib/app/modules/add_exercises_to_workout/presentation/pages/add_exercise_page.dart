@@ -104,14 +104,17 @@ class AddExercisePage extends GetView<AddExerciseController> {
                     height: 5,
                   ),
                   CustomInputWidget(
+                    controller: controller.seriesNumberTextController,
                     horizontalPadding: 0,
                     hintText: "Numero de Séries",
                   ),
                   CustomInputWidget(
+                    controller: controller.repeatTimeTextController,
                     horizontalPadding: 0,
                     hintText: "Tempo de repetição",
                   ),
                   CustomInputWidget(
+                    controller: controller.exerciseVariationTextController,
                     horizontalPadding: 0,
                     hintText: "Variação do exercicio",
                   ),
@@ -129,14 +132,20 @@ class AddExercisePage extends GetView<AddExerciseController> {
                               "Selecione os dias da semana que\nocorrerá o exercício:")
                     ],
                   ),
-                  Container(
-                    padding: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Wrap(
-                        children: controller.daysOfWeek
-                            .map((element) => _dayOfWeekComponent(
-                                element.isActive!, element.name!))
-                            .toList()),
+                  Obx(
+                    () {
+                      return Container(
+                        padding: EdgeInsets.only(top: 10),
+                        alignment: Alignment.centerLeft,
+                        child: Wrap(
+                            children: controller.daysOfWeek
+                                .map((element) => _dayOfWeekComponent(
+                                    element.value.isActive!, element.value.name!, onTap: (){
+                                      element.value.isActive = !element.value.isActive!;
+                                    }))
+                                .toList()),
+                      );
+                    }
                   ),
                 ],
               ),
@@ -165,14 +174,14 @@ class AddExercisePage extends GetView<AddExerciseController> {
   }
 }
 
-Widget _dayOfWeekComponent(bool isSelected, String dayOfWeek) {
+Widget _dayOfWeekComponent(bool isSelected, String dayOfWeek, { void Function()? onTap }) {
   return Container(
     width: 110,
     margin: EdgeInsets.symmetric(vertical: 3, horizontal: 1),
     child: Row(
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: onTap,
           child: Container(
             height: 30,
             width: 30,

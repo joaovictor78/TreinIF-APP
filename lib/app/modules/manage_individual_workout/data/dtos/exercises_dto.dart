@@ -29,7 +29,7 @@ class ExerciseDTO extends ExerciseEntity {
   int? seriesNumber;
   int? repeatTimeInSeconds;
   String? exerciseVariation;
-  Exercise? exercise;
+  ExerciseTypeEntity? exerciseType;
   ExercisesDaysOfWeek? exercisesDaysOfWeek;
 
   ExerciseDTO(
@@ -37,16 +37,16 @@ class ExerciseDTO extends ExerciseEntity {
       this.seriesNumber,
       this.repeatTimeInSeconds,
       this.exerciseVariation,
-      this.exercise,
-      this.exercisesDaysOfWeek}):super(id: id, seriesNumber: seriesNumber, exerciseType: exercise, exerciseVariation: exerciseVariation, repeatTimeInSeconds: repeatTimeInSeconds);
+      this.exerciseType,
+      this.exercisesDaysOfWeek}): super(id: id, seriesNumber: seriesNumber, exerciseType: exerciseType, exerciseVariation: exerciseVariation, repeatTimeInSeconds: repeatTimeInSeconds);
 
   ExerciseDTO.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     seriesNumber = json['series_number'];
     repeatTimeInSeconds = json['repeat_time_in_seconds'];
     exerciseVariation = json['exercise_variation'];
-    exercise = json['exercise'] != null
-        ? new Exercise.fromJson(json['exercise'])
+    exerciseType = json['exercise'] != null
+        ? new ExerciseTypeDTO.fromJson(json['exercise'])
         : null;
     exercisesDaysOfWeek = json['exercises_days_of_week'] != null
         ? new ExercisesDaysOfWeek.fromJson(json['exercises_days_of_week'])
@@ -59,8 +59,8 @@ class ExerciseDTO extends ExerciseEntity {
     data['series_number'] = this.seriesNumber;
     data['repeat_time_in_seconds'] = this.repeatTimeInSeconds;
     data['exercise_variation'] = this.exerciseVariation;
-    if (this.exercise != null) {
-      data['exercise'] = this.exercise!.toJson();
+    if (this.exerciseType != null) {
+      data['exercise'] = ExerciseTypeDTO(id: exerciseType!.id, name: exerciseType!.name).toJson();
     }
     if (this.exercisesDaysOfWeek != null) {
       data['exercises_days_of_week'] = this.exercisesDaysOfWeek!.toJson();
@@ -69,13 +69,13 @@ class ExerciseDTO extends ExerciseEntity {
   }
 }
 
-class Exercise extends ExerciseTypeEntity{
+class ExerciseTypeDTO extends ExerciseTypeEntity{
   int? id;
   String? name;
 
-  Exercise({this.id, this.name}): super(id: id, name: name);
+  ExerciseTypeDTO({this.id, this.name}): super(id: id, name: name);
 
-  Exercise.fromJson(Map<String, dynamic> json) {
+  ExerciseTypeDTO.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }

@@ -29,7 +29,7 @@ class AthleteWorkoutsComponent extends StatelessWidget {
                       alignment: Alignment.topCenter,
                         child: CustomTextWidget(
                             text:
-                                "Nenhum ponto de dado encontrado,\nadicione-os ao historico!", textAlign: TextAlign.center))
+                                "Nenhum treino encontrado, adicione-os\nao historico!", textAlign: TextAlign.center))
                     : ListView.builder(
                         padding: EdgeInsets.only(top: 10),
                         itemCount: _athleteProfileController.workouts.length,

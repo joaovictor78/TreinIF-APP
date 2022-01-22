@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:treinif/app/core/styles/app_colors.dart';
-import 'package:treinif/app/domain/entitities/athlete_entity.dart';
+import '/app/modules/start/submodules/home/presentation/componentes/carrousel_banner_card_component.dart';
+import '/app/modules/start/submodules/home/presentation/componentes/square_with_rounded_border_card_component.dart';
+import '/app/core/styles/app_colors.dart';
+import '/app/domain/entitities/athlete_entity.dart';
 import '/app/core/components/custom_text_widget.dart';
 import '/app/modules/start/submodules/home/home_controller.dart';
 
@@ -14,12 +16,40 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        fit: StackFit.expand,
+      body: SafeArea(
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            buildBody(context),
+            buildFloatingSearchBar(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBody(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
+    return Padding(
+      padding: EdgeInsets.only(
+          top: orientation != Orientation.landscape
+              ? (size.height / size.width) * 40
+              : (size.width / size.height) * 40,
+          left: 20,
+          right: 20),
+      child: Column(
         children: [
-          //buildMap(),
-          // buildBottomNavigationBar(),
-          buildFloatingSearchBar(context),
+          CarrouselBannerCardComponent(),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SquareWithRoundedBorderCardComponent(
+                iconData: Icons.history_edu_rounded,
+                title: "Historico dos meus atletas"),
+            SizedBox(width: 4),
+            SquareWithRoundedBorderCardComponent(
+                iconData: Icons.sports_basketball_rounded,
+                title: "Gerenciar tipos de exercicios")
+          ])
         ],
       ),
     );
