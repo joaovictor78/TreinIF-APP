@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +16,8 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.animationController.forward();
+    log(controller.carrouselBannerCurrentPage.toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
