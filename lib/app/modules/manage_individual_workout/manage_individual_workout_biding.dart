@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:treinif/app/modules/manage_individual_workout/data/datasources/remove_exercise_datasource.dart';
-import 'package:treinif/app/modules/manage_individual_workout/data/repositories/remove_exercise_repository.dart';
+import '/app/modules/manage_individual_workout/data/datasources/remove_exercise_datasource.dart';
+import '/app/modules/manage_individual_workout/data/repositories/remove_exercise_repository.dart';
 import '/app/modules/manage_individual_workout/domain/usecases/remove_exercise_usecase.dart';
 import '/app/modules/manage_individual_workout/controllers/manage_individual_workout_controller.dart';
 import '/app/modules/manage_individual_workout/data/datasources/get_exercises_by_day_of_week_datasource.dart';

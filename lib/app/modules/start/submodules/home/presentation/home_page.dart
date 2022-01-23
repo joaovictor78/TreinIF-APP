@@ -36,21 +36,26 @@ class HomePage extends GetView<HomeController> {
           top: orientation != Orientation.landscape
               ? (size.height / size.width) * 40
               : (size.width / size.height) * 40,
-          left: 20,
-          right: 20),
-      child: Column(
-        children: [
-          CarrouselBannerCardComponent(),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SquareWithRoundedBorderCardComponent(
-                iconData: Icons.history_edu_rounded,
-                title: "Historico dos meus atletas"),
-            SizedBox(width: 4),
-            SquareWithRoundedBorderCardComponent(
-                iconData: Icons.sports_basketball_rounded,
-                title: "Gerenciar tipos de exercicios")
-          ])
-        ],
+          left: 7,
+          right: 7),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarrouselBannerCardComponent(),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SquareWithRoundedBorderCardComponent(
+                  iconData: Icons.history_edu_rounded,
+                  title: "Historico dos meus atletas"),
+              SizedBox(width: 4),
+              SquareWithRoundedBorderCardComponent(
+                  onTap: (){
+                    Get.toNamed("/manage_exercises_types");
+                  },
+                  iconData: Icons.sports_basketball_rounded,
+                  title: "Gerenciar tipos de exercicios")
+            ])
+          ],
+        ),
       ),
     );
   }
