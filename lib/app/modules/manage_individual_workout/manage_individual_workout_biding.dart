@@ -19,7 +19,6 @@ class ManageIndividualWorkoutBiding extends Bindings{
     Get.lazyPut(() => AddExerciseRepository(Get.find<AddExerciseDataSource>()));
     Get.lazyPut(() => AddExerciseUseCase(Get.find<AddExerciseRepository>()));
     Get.lazyPut(() => AddExerciseController(addExerciseUseCase: Get.find()));
-
     Get.lazyPut(() => RemoveExerciseDataSource(Get.find<CustomDio>()));
     Get.lazyPut(() => RemoveExerciseRepository(Get.find<RemoveExerciseDataSource>()));
     Get.lazyPut(() => RemoveExerciseUseCase(Get.find<RemoveExerciseRepository>()));    
