@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -15,12 +14,12 @@ class HomeController extends GetxController
   late AnimationController animationController;
   late Animation<double> nextPage;
   var carrouselBannerCurrentPage = 0.obs;
-  PageController pageController = PageController(initialPage: 0, viewportFraction: 0.8);
+  PageController pageController = PageController(initialPage: 0, viewportFraction: 0.9);
   @override
   onInit() {
     super.onInit();
     animationController = AnimationController(
-        duration: Duration(seconds: 10), vsync: this);
+        duration: Duration(seconds: 5), vsync: this);
 
     nextPage = Tween(begin: 0.0, end: 1.0).animate(animationController);
 
@@ -34,14 +33,12 @@ class HomeController extends GetxController
            pageController.animateToPage(carrouselBannerCurrentPage.value,
               duration: Duration(milliseconds: 100), curve: Curves.easeInSine);
         } else {
-          log("caiu aqui");
           carrouselBannerCurrentPage.value = 0;
           log(carrouselBannerCurrentPage.value.toString());
           pageController.animateToPage(carrouselBannerCurrentPage.value,
               duration: Duration(milliseconds: 100), curve: Curves.easeInSine);
         }
       } 
-      
     });
   }
 

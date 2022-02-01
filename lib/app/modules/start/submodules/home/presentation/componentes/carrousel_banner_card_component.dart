@@ -5,10 +5,10 @@ import '/app/core/styles/app_colors.dart';
 
 class CarrouselBannerCardComponent extends StatelessWidget {
   HomeController controller = Get.find<HomeController>();
-  var listSlide = [
-    {"id": 1, "image": "afjsdçlk"},
-    {"id": 2, "image": "çlkjdfsçalkf"},
-    {"id": 3, "image": "ldkjasçf"}
+  List listSlide = [
+    {"id": 1, "image": "lib/assets/images/banner_1.png"},
+    {"id": 2, "image": "lib/assets/images/banner_2.png"},
+    {"id": 3, "image": "lib/assets/images/banner_3.png"}
   ];
 
   @override
@@ -17,10 +17,10 @@ class CarrouselBannerCardComponent extends StatelessWidget {
     Orientation orientation = MediaQuery.of(context).orientation;
     return Container(
       color: AppColors.primaryColor,
-      width: double.infinity,
+      width: size.width,
       height: orientation != Orientation.landscape
-          ? (size.height / size.width) * 80
-          : (size.width / size.height) * 80,
+          ? (size.height / size.width) * 90
+          : (size.width / size.height) * 90,
       child: Column(
         children: [
           Expanded(
@@ -35,10 +35,29 @@ class CarrouselBannerCardComponent extends StatelessWidget {
                   return Obx(() {
                     bool isSelected = banner["id"] ==
                         controller.carrouselBannerCurrentPage.value;
-                    return AnimatedContainer(
-                      duration: Duration(milliseconds: 100),
-                      height: isSelected ? 20 : 5,
-                      color: isSelected ? Colors.blue : Colors.black,
+                    final double blur = isSelected ? 0 : 2;
+                    final double offset = isSelected ? 0 : 5;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 9),
+                      child: AnimatedContainer(
+                        width: size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: isSelected ? Colors.transparent : AppColors.darkGrey,
+                                blurRadius: blur,
+                                offset: Offset (0, offset)),
+                          
+                          ],
+                          image: DecorationImage(
+                              image: AssetImage(banner["image"].toString()),
+                              fit: BoxFit.cover),
+                        ),
+                        duration: Duration(milliseconds: 100),
+                        height: isSelected ? 20 : 5,
+                      ),
                     );
                   });
                 }),
@@ -60,8 +79,8 @@ class CarrouselBannerCardComponent extends StatelessWidget {
                   controller.carrouselBannerCurrentPage.value ==
                       ((element["id"] as int) - 1);
               return Container(
-                width: isActivetedBollet ? 20 : 10,
-                height: isActivetedBollet ? 20 : 10,
+                width: isActivetedBollet ? 15 : 10,
+                height: isActivetedBollet ? 15 : 10,
                 margin: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     color: isActivetedBollet

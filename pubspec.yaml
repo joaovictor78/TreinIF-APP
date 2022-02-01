@@ -41,3 +41,6 @@ flutter:
     - lib/assets/icons/information-icon.png
     - lib/assets/icons/profile-icon.png
     - lib/assets/training-icon.png
+    - lib/assets/banner_1.png
+    - lib/assets/banner_2.png
+    - lib/assets/banner_3.png

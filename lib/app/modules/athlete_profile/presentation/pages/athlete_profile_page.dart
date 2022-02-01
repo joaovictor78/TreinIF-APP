@@ -18,6 +18,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         key: controller.key,
+        resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: AppBar(
             backgroundColor: Colors.white,
@@ -46,7 +47,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
+                                  horizontal: 20, vertical: 2),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

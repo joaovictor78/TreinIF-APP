@@ -211,55 +211,57 @@ class AthletesHistoryComponent extends StatelessWidget {
                                     ]),
                                   ),
                                   SizedBox(
-                                    width: 10,
+                                    width: 16,
                                   ),
-                                  Container(
-                                    width: 250,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: AppColors.lightGrey))),
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(height: 20),
-                                            CustomTextWidget(
-                                                text:
-                                                    "Data ${_dataPoint.date}"),
-                                            SizedBox(height: 10),
-                                            (() {
-                                              if(_dataPoint.values == null){
-                                                return Container();
-                                              }
-                                              for (int count = 0;
-                                                  count <
-                                                      _dataPoint.values!.length;
-                                                  count++) {
-                                                if (count <= 3) {
-                                                  return CustomTextWidget(
-                                                      text:
-                                                          "${_dataPoint.values![count].type} ${_dataPoint.values![count].value}");
-                                                }
-                                              }
-                                              if (_dataPoint.values!.length >
-                                                  3) {
-                                                return CustomTextWidget(
+                                  Flexible(
+                                    child: Container(
+                                      width: 250,
+                                      height: 130,
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                              bottom: BorderSide(
+                                                  color: AppColors.lightGrey))),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(height: 20),
+                                              CustomTextWidget(
                                                   text:
-                                                      "ver mais + ${_dataPoint.values!.length - 3} items",
-                                                  fontWeight: FontWeight.w600,
-                                                );
-                                              }
-                                              return Container();
-                                            }())
-                                          ],
-                                        ),
-                                        Spacer(),
-                                        Icon(Icons.chevron_right_rounded)
-                                      ],
+                                                      "Data ${_dataPoint.date}"),
+                                              SizedBox(height: 10),
+                                              (() {
+                                                if(_dataPoint.values == null){
+                                                  return Container();
+                                                }
+                                                for (int count = 0;
+                                                    count <
+                                                        _dataPoint.values!.length;
+                                                    count++) {
+                                                  if (count <= 3) {
+                                                    return CustomTextWidget(
+                                                        text:
+                                                            "${_dataPoint.values![count].type} ${_dataPoint.values![count].value}");
+                                                  }
+                                                }
+                                                if (_dataPoint.values!.length >
+                                                    3) {
+                                                  return CustomTextWidget(
+                                                    text:
+                                                        "ver mais + ${_dataPoint.values!.length - 3} items",
+                                                    fontWeight: FontWeight.w600,
+                                                  );
+                                                }
+                                                return Container();
+                                              }())
+                                            ],
+                                          ),
+                                          Spacer(),
+                                          Icon(Icons.chevron_right_rounded)
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],

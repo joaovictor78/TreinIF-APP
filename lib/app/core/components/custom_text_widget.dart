@@ -12,9 +12,11 @@ class CustomTextWidget extends StatelessWidget {
   TextDecoration? decoration;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Text(
       text,
       textAlign: textAlign,
+      textScaleFactor: size.width/400,
       style: GoogleFonts.poppins(
         color: color,
         fontSize: fontSize,

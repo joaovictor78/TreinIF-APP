@@ -12,8 +12,8 @@ class SquareWithRoundedBorderCardComponent extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     Orientation orientation = MediaQuery.of(context).orientation;
     double cardSize = orientation != Orientation.landscape
-        ? (size.height / size.width) * 90
-        : (size.width / size.height) * 90;
+        ? (200/size.width) * 300
+        : (200/size.height) * 300;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -34,9 +34,11 @@ class SquareWithRoundedBorderCardComponent extends StatelessWidget {
                           ? (size.height / size.width) * 30
                           : (size.width / size.height) * 30),
                 ),
-                CustomTextWidget(
-                    text: title ?? "",
-                    textAlign: TextAlign.center)
+                Flexible(
+                  child: CustomTextWidget(
+                      text: title ?? "",
+                      textAlign: TextAlign.center),
+                )
               ],
             ),
           ),
