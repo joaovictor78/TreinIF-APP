@@ -30,7 +30,7 @@ class ExerciseDTO extends ExerciseEntity {
   int? repeatTimeInSeconds;
   String? exerciseVariation;
   ExerciseTypeEntity? exerciseType;
-  ExercisesDaysOfWeek? exercisesDaysOfWeek;
+  List<String>? daysOfWeek;
 
   ExerciseDTO(
       {this.id,
@@ -38,7 +38,7 @@ class ExerciseDTO extends ExerciseEntity {
       this.repeatTimeInSeconds,
       this.exerciseVariation,
       this.exerciseType,
-      this.exercisesDaysOfWeek}): super(id: id, seriesNumber: seriesNumber, exerciseType: exerciseType, exerciseVariation: exerciseVariation, repeatTimeInSeconds: repeatTimeInSeconds);
+      this.daysOfWeek}): super(id: id, seriesNumber: seriesNumber, exerciseType: exerciseType, exerciseVariation: exerciseVariation, repeatTimeInSeconds: repeatTimeInSeconds);
 
   ExerciseDTO.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -48,23 +48,15 @@ class ExerciseDTO extends ExerciseEntity {
     exerciseType = json['exercise'] != null
         ? new ExerciseTypeDTO.fromJson(json['exercise'])
         : null;
-    exercisesDaysOfWeek = json['exercises_days_of_week'] != null
-        ? new ExercisesDaysOfWeek.fromJson(json['exercises_days_of_week'])
-        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['series_number'] = this.seriesNumber;
     data['repeat_time_in_seconds'] = this.repeatTimeInSeconds;
     data['exercise_variation'] = this.exerciseVariation;
-    if (this.exerciseType != null) {
-      data['exercise'] = ExerciseTypeDTO(id: exerciseType!.id, name: exerciseType!.name).toJson();
-    }
-    if (this.exercisesDaysOfWeek != null) {
-      data['exercises_days_of_week'] = this.exercisesDaysOfWeek!.toJson();
-    }
+    data['exercise_type_id'] = exerciseType!.id;
+    data["days_of_week"] = this.daysOfWeek;
     return data;
   }
 }
@@ -88,28 +80,4 @@ class ExerciseTypeDTO extends ExerciseTypeEntity{
   }
 }
 
-class ExercisesDaysOfWeek {
-  String? createdAt;
-  String? updatedAt;
-  int? dayOfWeekId;
-  int? exerciseId;
 
-  ExercisesDaysOfWeek(
-      {this.createdAt, this.updatedAt, this.dayOfWeekId, this.exerciseId});
-
-  ExercisesDaysOfWeek.fromJson(Map<String, dynamic> json) {
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    dayOfWeekId = json['day_of_week_id'];
-    exerciseId = json['exercise_id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['day_of_week_id'] = this.dayOfWeekId;
-    data['exercise_id'] = this.exerciseId;
-    return data;
-  }
-}

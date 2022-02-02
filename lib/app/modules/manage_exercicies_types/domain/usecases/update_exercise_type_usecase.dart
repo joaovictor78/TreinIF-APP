@@ -5,7 +5,7 @@ class UpdateExerciseTypeUseCase{
    IUpdateExerciseTypeRepository _iUpdateExerciseTypeRepository;
    UpdateExerciseTypeUseCase(this._iUpdateExerciseTypeRepository);
 
-   Future<ReturnData> call() async {
-     return await _iUpdateExerciseTypeRepository();
+   Future<ReturnData> call(int id, String exerciseTypeName) async {
+     return await _iUpdateExerciseTypeRepository(id, exerciseTypeName);
    }
 }

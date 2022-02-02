@@ -6,8 +6,8 @@ class AddExerciseTypeRepository implements IAddExerciseTypeRepository{
   IAddExerciseTypeDataSource _iAddExerciseDataSource;
   AddExerciseTypeRepository(this._iAddExerciseDataSource);
   @override
-  Future<ReturnData> call() async {
-    return _iAddExerciseDataSource();
+  Future<ReturnData> call(String exerciseTypeName) async {
+    return _iAddExerciseDataSource(exerciseTypeName);
   }
 
 }

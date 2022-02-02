@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/modules/manage_exercicies_types/presentation/components/exercise_type_card_component.dart';
+import '/app/domain/entitities/exercise_type_entity.dart';
 import '/app/modules/manage_exercicies_types/controllers/manage_exercises_types_controller.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_input_widget.dart';
 import '/app/core/styles/app_colors.dart';
 import '/app/core/components/custom_text_widget.dart';
-import "/app/modules/athlete_profile/presentation/components/athlete's_history_data_point_card_component.dart";
 import '/app/core/components/custom_back_button_widget.dart';
 
 class ManageExercisesTypesPage extends GetView<ManageExercisesTypesController> {
@@ -36,16 +36,40 @@ class ManageExercisesTypesPage extends GetView<ManageExercisesTypesController> {
               CustomTextWidget(text: "Tipos de Exercicios", fontSize: 18),
               SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(itemBuilder: (context, index) {
-                  return AthletesHistoryDataPointCard();
-                }),
+                child: Obx(
+                   () {
+                    if(controller.isLoading.value){
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if(controller.exercisesTypes.isEmpty){
+                      return Center(
+                        child: CustomTextWidget(text: "Nenhum tipo de exercicio disponivel, adicione-os!"),
+                      );
+                    }
+                    return ListView.builder(
+                      itemCount: controller.exercisesTypes.length,
+                      itemBuilder: (context, index) {
+                      ExerciseTypeEntity exerciseType = controller.exercisesTypes[index];
+                      return ExerciseTypeCardComponent(exerciseType, 
+                      onEditable: (){
+                        showDialog(context, isEdtable: true, id: exerciseType.id);
+                        //controller.updateExerciseType(exerciseType.id!, exerciseTypeName);
+                      },
+                      onDeleted: (){
+                        controller.removeExerciseType(exerciseType.id!);
+                      },);
+                    });
+                  }
+                ),
               )
             ],
           ),
         ));
   }
 
-  void showDialog(BuildContext context) {
+  void showDialog(BuildContext context, {bool isEdtable = false, int? id}) {
     showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "",
@@ -64,17 +88,16 @@ class ManageExercisesTypesPage extends GetView<ManageExercisesTypesController> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25, top: 20, bottom: 10),
                         child: CustomTextWidget(
-                            text: "Cadastre o exercício",
+                            text: isEdtable ? "Editar tipo de exercício" : "Cadastre o exercício",
                             fontSize: 17,
                             fontWeight: FontWeight.w500),
                       ),
                     
                       CustomInputWidget(
+                        controller: controller.exerciseTypeTextConstroller,
                         hintText: "Ex: Pressão",
                         icon: Icons.text_fields_rounded,
                       ),
-                    
-                    
                       Spacer(),
                       Container(
                         padding: EdgeInsets.only(bottom: 20),
@@ -84,9 +107,16 @@ class ManageExercisesTypesPage extends GetView<ManageExercisesTypesController> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             CustomButtonWidget(
-                              text: "Adicionar",
+                              text: isEdtable ? "Confirmar" : "Adicionar",
                               color: AppColors.mediumGreen,
                               padding: EdgeInsets.symmetric(horizontal: 25),
+                              onPressed: (){
+                                if(isEdtable){
+                                  controller.updateExerciseType(id!);
+                                } else{
+                                  controller.addExerciseType();
+                                }
+                              },
                             ),
                             SizedBox(
                               width: 25,

@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/modules/athlete_profile/domain/entities/value_data_point_of_athlete_historic_entity.dart';
 import '/app/modules/athlete_profile/controllers/historic_of_athlete_controller.dart';
 import '/app/core/components/custom_button_widget.dart';
 import '/app/core/components/custom_input_widget.dart';
@@ -27,35 +27,41 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
                 showDialog(context);
               }),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30),
-              CustomTextWidget(text: "Historico do Atleta", fontSize: 18),
-              CustomTextWidget(text: "Data ${controller.dataPointSelected.date}"),
-              SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: controller.dataPointSelected.values!.length,
-                  itemBuilder: (context, index) {
-                  return AthletesHistoryDataPointCard(
-                    onDeleted: (){
-
-                    },
-                    onEditable: (){
-                      showDialog(context, true);
-                    },
-                  );
-                }),
-              )
-            ],
-          ),
+        body: Obx(
+          () {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30),
+                  CustomTextWidget(text: "Historico do Atleta", fontSize: 18),
+                  CustomTextWidget(text: "Data ${controller.dataPointSelected.value!.date}"),
+                  SizedBox(height: 20),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: controller.dataPointSelected.value!.values!.length,
+                      itemBuilder: (context, index) {
+                      ValueDataPointOfAthleteHistoricEntity valueDataPoint = controller.dataPointSelected.value!.values![index];
+                      return AthletesHistoryDataPointCard(
+                        valueDataPoint,
+                        onDeleted: (){
+                          controller.removeValueDataPoint(athleteID,controller.dataPointSelected.value!.id!, valueDataPoint.id!);
+                        },
+                        onEditable: (){
+                          showDialog(context, isEditable: true, valueDataPointID: valueDataPoint.id);
+                        },
+                      );
+                    }),
+                  )
+                ],
+              ),
+            );
+          }
         ));
   }
 
-  void showDialog(BuildContext context, [bool isEditable=false]) {
+  void showDialog(BuildContext context,{int? valueDataPointID, bool isEditable=false}) {
     showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "",
@@ -111,9 +117,14 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             CustomButtonWidget(
-                              text: "Adicionar",
+                              text:  isEditable ? "Confirmar" : "Adicionar",
                               onPressed: (){
-                                controller.addValueDataPoint(athleteID, controller.dataPointSelected.id!);
+                                if(isEditable){
+                                  controller.updateValueDataPoint(athleteID, controller.dataPointSelected.value!.id!, valueDataPointID!);
+                                } else{
+                                   controller.addValueDataPoint(athleteID, controller.dataPointSelected.value!.id!);
+                                }
+                                 Navigator.pop(context);
                               },
                               color: AppColors.mediumGreen,
                               padding: EdgeInsets.symmetric(horizontal: 25),
@@ -124,6 +135,9 @@ class HistoricOfAthletePage extends GetView<HistoricOfAthleteController> {
                             CustomButtonWidget(
                               text: "Cancelar",
                               color: AppColors.red,
+                              onPressed: (){
+                                Navigator.pop(context);
+                              },
                               padding: EdgeInsets.symmetric(horizontal: 25),
                             )
                           ],

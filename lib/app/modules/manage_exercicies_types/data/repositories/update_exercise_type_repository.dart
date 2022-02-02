@@ -6,8 +6,8 @@ class UpdateExerciseTypeRepository implements IUpdateExerciseTypeRepository{
   IUpdateExerciseTypeDataSource _iUpdateExerciseTypeDataSource;
   UpdateExerciseTypeRepository(this._iUpdateExerciseTypeDataSource);
   @override
-  Future<ReturnData> call() async {
-    return await _iUpdateExerciseTypeDataSource();
+  Future<ReturnData> call(int id, String exerciseTypeName) async {
+    return await _iUpdateExerciseTypeDataSource(id, exerciseTypeName);
   }
 
 }

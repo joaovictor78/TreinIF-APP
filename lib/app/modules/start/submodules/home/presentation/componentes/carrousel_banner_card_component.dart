@@ -25,6 +25,7 @@ class CarrouselBannerCardComponent extends StatelessWidget {
         children: [
           Expanded(
             child: PageView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: listSlide.length,
                 controller: controller.pageController,
                 onPageChanged: (value) {
@@ -38,7 +39,7 @@ class CarrouselBannerCardComponent extends StatelessWidget {
                     final double blur = isSelected ? 0 : 2;
                     final double offset = isSelected ? 0 : 5;
                     return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 9),
+                      padding: const EdgeInsets.symmetric(vertical: 2),
                       child: AnimatedContainer(
                         width: size.width,
                         margin: EdgeInsets.symmetric(horizontal: 3),

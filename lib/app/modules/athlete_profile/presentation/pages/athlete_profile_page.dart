@@ -34,7 +34,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: constrains.maxHeight * .40,
+                        height: constrains.maxHeight * .43,
                         child: CustomPaintWidget(
                           child: Column(children: [
                             Container(
@@ -73,7 +73,7 @@ class AthleteProfilePage extends GetView<AthleteProfileController> {
                                     width: 6,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding: const EdgeInsets.all(20),
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,

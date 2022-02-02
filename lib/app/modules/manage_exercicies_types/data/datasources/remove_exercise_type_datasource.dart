@@ -6,9 +6,9 @@ class RemoveExerciseTypeDataSource implements IRemoveExerciseTypeDataSource{
   RemoveExerciseTypeDataSource(this._client);
   IHttpClient _client;
   @override
-  Future<ReturnData> call() async {
+  Future<ReturnData> call(int id) async {
      try{
-       await _client.delete("");
+       await _client.delete("/trainer/exercises-types/$id");
        return ReturnData(true);
      } catch(error){
        return ReturnData(false);

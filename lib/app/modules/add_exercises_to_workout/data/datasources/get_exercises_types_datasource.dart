@@ -1,11 +1,11 @@
-import '/app/modules/manage_exercicies_types/domain/dtos/exercises_types_dto.dart';
-import '/app/domain/entitities/exercise_type_entity.dart';
 import '/app/core/network/interfaces/i_http_client.dart';
 import '/app/core/utils/return_data.dart';
-import '/app/modules/manage_exercicies_types/data/repositories/i_datasources/i_get_exercises_type_datasource.dart';
+import '/app/domain/entitities/exercise_type_entity.dart';
+import '/app/modules/add_exercises_to_workout/data/repositories/i_datasources/i_get_exercises_types_datasource.dart';
+import '/app/modules/manage_exercicies_types/domain/dtos/exercises_types_dto.dart';
 
-class GetExercisesTypeDataSource implements IGetExercisesTypeDataSource{
-  GetExercisesTypeDataSource(this._client);
+class GetExercisesTypesDataSource implements IGetExercisesTypesDataSource{
+    GetExercisesTypesDataSource(this._client);
   IHttpClient _client;
   @override
   Future<ReturnData<List<ExerciseTypeEntity>>> call() async {
@@ -17,5 +17,4 @@ class GetExercisesTypeDataSource implements IGetExercisesTypeDataSource{
       return ReturnData(false);
     }
   }
-  
 }

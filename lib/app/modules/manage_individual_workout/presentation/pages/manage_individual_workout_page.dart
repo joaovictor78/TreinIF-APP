@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:treinif/app/core/enums/exercise_classification_enum.dart';
 import '/app/domain/entitities/exercise_entity.dart';
 import '/app/modules/manage_individual_workout/controllers/manage_individual_workout_controller.dart';
 import '/app/core/components/custom_calendar.dart';
@@ -124,7 +125,7 @@ Widget trainingListByTeam(BuildContext context) {
           OutlinedButton(
               child: CustomTextWidget(text: "Adicionar exercícios"),
               onPressed: () {
-                Get.toNamed("/add_exercise");
+                Get.toNamed("/add_exercise", parameters: {"workout_id": controller.workoutID.toString(), "workout_type": ExerciseClassificationEnum.individual.value.toString(), "day_of_week_selected_in_tab" : DateFormat('EEEE').format(controller.selectedDate)});
               },
               style: OutlinedButton.styleFrom(
                   side: BorderSide(width: 1.0, color: Colors.white))),
@@ -137,10 +138,11 @@ Widget trainingListByTeam(BuildContext context) {
           startDate: startDate,
           endDate: endDate,
           selectedDate: controller.selectedDate,
-          onDateSelected: (DateTime data) => {
-            print(DateFormat('EEEE').format(data)),
+          onDateSelected: (DateTime date) => {
+            print(DateFormat('EEEE').format(date)),
+            controller.selectedDate = date,
             controller.getExercisesByDayOfWeek(
-                controller.workoutID, DateFormat('EEEE').format(data))
+                controller.workoutID, DateFormat('EEEE').format(date))
           },
           dateTileBuilder: dateTileBuilder,
           iconColor: Colors.black,

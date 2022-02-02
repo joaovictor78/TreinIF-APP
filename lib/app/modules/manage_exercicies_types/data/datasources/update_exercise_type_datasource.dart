@@ -6,8 +6,8 @@ class UpdateExerciseTypeDataSource implements IUpdateExerciseTypeDataSource{
   IHttpClient _client;
   UpdateExerciseTypeDataSource(this._client);
   @override
-  Future<ReturnData> call() async  {
-    await _client.put("");
+  Future<ReturnData> call(int id, String exerciseTypeName) async  {
+    await _client.put("/trainer/exercises-types/$id", data: { "exercise_type_name": exerciseTypeName });
      try{
        return ReturnData(true);
      } catch(error){

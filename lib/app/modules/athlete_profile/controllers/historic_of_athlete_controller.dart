@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,13 +20,14 @@ class HistoricOfAthleteController extends GetxController{
   late AthleteProfileController _athleteProfileController;
   late TextEditingController newValueDataPointTypeTextController;
   late TextEditingController newValueDataPointValueTextController;
-  late DataPointOfAthleteHistoricEntity dataPointSelected;
+  late var dataPointSelected = Rxn<DataPointOfAthleteHistoricEntity>();
   @override 
   void onInit() {
     _athleteProfileController = Get.find<AthleteProfileController>();
     newValueDataPointTypeTextController = TextEditingController();
     newValueDataPointValueTextController = TextEditingController();
-    dataPointSelected = Get.arguments["historic"];
+    dataPointSelected.value = Get.arguments["historic"];
+    log(dataPointSelected.value!.id.toString());
     super.onInit();
   }
   @override
@@ -40,7 +43,7 @@ class HistoricOfAthleteController extends GetxController{
     if(!_response.success){
       return CustomToast.showToast("Ocorreu um erro ao adicionar o valor ao historico!", backgroundColor: AppColors.red);
     }
-    //fazer logica pra adicionar o item a lista
+    dataPointSelected.value!.values!.add(_response.data!);
   }
   updateValueDataPoint(int athleteID, int dataPointID, int valueDataPointID) async {
     ValueDataPointOfAthleteHistoricEntity valueDataPoint = ValueDataPointOfAthleteHistoricEntity(type: newValueDataPointTypeTextController.text, value: newValueDataPointValueTextController.text);
@@ -48,7 +51,7 @@ class HistoricOfAthleteController extends GetxController{
     if(!_response.success){
       return CustomToast.showToast("Ocorreu um erro ao atualizar o dado do ponto de dados");
     }
-    final valueDataPointSelected = dataPointSelected.values!.firstWhere((element) => element.id == valueDataPointID);
+    final valueDataPointSelected = dataPointSelected.value!.values!.firstWhere((element) => element.id == valueDataPointID);
     valueDataPointSelected.type = valueDataPoint.type;
     valueDataPointSelected.value = valueDataPoint.value;
 
@@ -58,6 +61,6 @@ class HistoricOfAthleteController extends GetxController{
     if(!_response.success){
       return CustomToast.showToast("Ocorreu um erro ao remover o dado do ponto de dados");
     }
-    dataPointSelected.values!.removeWhere((element) => element.id == valueDataPointID);
+    dataPointSelected.value!.values!.removeWhere((element) => element.id == valueDataPointID);
   }
 } 

@@ -11,7 +11,7 @@ class UpdateValueDataPointOfHistoricOfAthleteDataSource implements IUpdateValueD
   Future<ReturnData> call(int athleteID, int dataPointID, int valueDataPointID, ValueDataPointOfAthleteHistoricEntity valueDataPoint) async{
      try{
        Values value = Values(type: valueDataPoint.type, value: valueDataPoint.value);
-       await _client.put("/athletes/$athleteID/historic/data-point/$dataPointID/value-data-point/$valueDataPointID", data: value.toJson());
+       await _client.put("/athletes/$athleteID/historic/data-points/$dataPointID/value-data-point/$valueDataPointID", data: value.toJson());
        return ReturnData(true);
      } catch(error){
        return ReturnData(false);

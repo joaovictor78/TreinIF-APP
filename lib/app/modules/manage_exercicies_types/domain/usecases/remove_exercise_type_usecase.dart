@@ -5,7 +5,7 @@ class RemoveExerciseTypeUseCase{
   RemoveExerciseTypeUseCase(this._iRemoveExerciseTypeRepository);
   IRemoveExerciseTypeRepository _iRemoveExerciseTypeRepository;
 
-  Future<ReturnData> call() async {
-     return await _iRemoveExerciseTypeRepository();
+  Future<ReturnData> call(int id) async {
+     return await _iRemoveExerciseTypeRepository(id);
   }
 }

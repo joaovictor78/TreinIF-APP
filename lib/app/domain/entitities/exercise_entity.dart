@@ -7,6 +7,7 @@ class ExerciseEntity{
   int? seriesNumber;
   int? repeatTimeInSeconds;
   String? exerciseVariation;
+  List<String>? daysOfWeek;
   ExerciseTypeEntity? exerciseType; 
-  ExerciseEntity({this.id, this.seriesNumber, this.exerciseType, this.exerciseVariation, this.repeatTimeInSeconds});
+  ExerciseEntity({this.id, this.seriesNumber, this.exerciseType, this.daysOfWeek, this.exerciseVariation, this.repeatTimeInSeconds});
 }

@@ -6,8 +6,8 @@ class RemoveExerciseTypeRepository implements IRemoveExerciseTypeRepository{
   IRemoveExerciseTypeDataSource _iRemoveExerciseTypeDataSource;
   RemoveExerciseTypeRepository(this._iRemoveExerciseTypeDataSource);
   @override
-  Future<ReturnData> call() async {
-     return await _iRemoveExerciseTypeDataSource();
+  Future<ReturnData> call(int id) async {
+     return await _iRemoveExerciseTypeDataSource(id);
   }
 
 }

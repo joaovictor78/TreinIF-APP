@@ -5,7 +5,7 @@ class AddExerciseTypeUseCase {
   IAddExerciseTypeRepository _addExerciseTypeRepository;
   AddExerciseTypeUseCase(this._addExerciseTypeRepository);
 
-  Future<ReturnData> call() async {
-    return await _addExerciseTypeRepository();
+  Future<ReturnData> call(String exerciseTypeName) async {
+    return await _addExerciseTypeRepository(exerciseTypeName);
   }
 }

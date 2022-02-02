@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '/app/modules/manage_exercicies_types/manage_exercises_types_biding.dart';
 import '/app/modules/manage_individual_workout/manage_individual_workout_biding.dart';
 import '/app/modules/add_exercises_to_workout/add_exercises_to_workout_biding.dart';
 import '/app/modules/manage_exercicies_types/presentation/pages/manage_exercises_types_page.dart';
@@ -61,7 +62,7 @@ void main() {
         GetPage(name: "/historic", page: () => HistoricOfAthletePage())
       ],
       binding: AthleteProfileBiding()),
-      GetPage(name: "/manage_exercises_types", page: () => ManageExercisesTypesPage( )),
+      GetPage(name: "/manage_exercises_types", page: () => ManageExercisesTypesPage( ), binding: ManageExercisesTypesBiding()),
       GetPage(name: "/add_exercise", page: () => AddExercisePage(), binding: AddExercisesToWorkoutBiding()),
       GetPage(name: "/manage_individual_workout", page: () => ManageIndividualWorkoutPage(), binding: ManageIndividualWorkoutBiding())
     ],
