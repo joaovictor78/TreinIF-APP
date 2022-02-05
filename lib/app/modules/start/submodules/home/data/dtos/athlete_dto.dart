@@ -1,5 +1,4 @@
-import 'package:treinif/app/domain/entitities/course_entity.dart';
-
+import '/app/domain/entitities/course_entity.dart';
 import '/app/domain/entitities/athlete_entity.dart';
 
 class AthleteDTO extends AthleteEntity{
@@ -29,7 +28,7 @@ class AthleteDTO extends AthleteEntity{
       this.userId}):super(name: name, email: email, birthdate: birthdate, bloodType: bloodType, course: course, cpf: cpf, rg: rg);
 
   AthleteDTO.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['athlete_id'] ?? json['id'];
     name = json['full_name'];
     email = json['email'];
     avatarUrl = json['avatar_url'];

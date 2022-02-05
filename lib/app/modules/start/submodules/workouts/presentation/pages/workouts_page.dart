@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:treinif/app/domain/entitities/athlete_entity.dart';
 import '/app/modules/start/submodules/workouts/domain/entitities/athlete_by_individual_workout_entity.dart';
 import '/app/modules/start/submodules/workouts/domain/entitities/team_entity.dart';
 import '/app/core/components/custom_tab_item_widget.dart';
@@ -86,9 +89,13 @@ class WorkoutsPage extends GetView<WorkoutsController> {
                           child: ListView.builder(
                               itemCount: controller.athletesByIndividualWorkouts.length,
                             itemBuilder: (context, index) {
-                            AthleteByIndividualWorkoutEntity athleteEntity = controller.athletesByIndividualWorkouts[index];
+                            AthleteEntity athleteEntity = controller.athletesByIndividualWorkouts[index];
                             return CustomListTileWidget(  
                               athleteEntity: athleteEntity,
+                              onTap: (){
+                                log(athleteEntity.id.toString());
+                                Get.toNamed("/athlete_profile", arguments: athleteEntity);
+                              },
                             );
                           }),
                         ),

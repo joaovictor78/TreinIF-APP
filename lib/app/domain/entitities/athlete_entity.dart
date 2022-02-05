@@ -1,5 +1,4 @@
-
-import 'package:treinif/app/domain/entitities/course_entity.dart';
+import '/app/domain/entitities/course_entity.dart';
 
 class AthleteEntity {
   int? id;

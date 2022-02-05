@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/app/modules/start/submodules/workouts/domain/entitities/athlete_by_individual_workout_entity.dart';
+import '/app/domain/entitities/athlete_entity.dart';
 import '/app/core/components/custom_text_widget.dart';
 import '/app/modules/start/submodules/workouts/domain/entitities/team_entity.dart';
 import '/app/core/styles/app_colors.dart';
@@ -7,7 +7,7 @@ import '/app/core/styles/app_colors.dart';
 class CustomListTileWidget extends StatelessWidget {
   CustomListTileWidget({this.onTap, this.teamEntity, this.athleteEntity});
   TeamEntity? teamEntity;
-  AthleteByIndividualWorkoutEntity? athleteEntity;
+  AthleteEntity? athleteEntity;
   void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class CustomListTileWidget extends StatelessWidget {
                         fit: BoxFit.cover,
                         errorBuilder: (context, object, trace) {
                           return Center(
-                            child: CustomTextWidget(text: teamEntity!.name![0].toUpperCase()),
+                            child: CustomTextWidget(text: teamEntity != null ?  teamEntity!.name![0].toUpperCase() : athleteEntity!.name![0].toUpperCase() ),
                           );
                         },
                       ),
@@ -49,11 +49,7 @@ class CustomListTileWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTextWidget(text: teamEntity != null ? teamEntity?.name ?? "" : athleteEntity?.athlete?.name ?? ""),
-                      CustomTextWidget(
-                        text: teamEntity != null ? "Modalidade: ${teamEntity?.modality?.name ?? ''}"  : "Equipe: ${athleteEntity?.team?.name ?? ''}",
-                        fontSize: 10,
-                      )
+                      CustomTextWidget(text: teamEntity != null ? teamEntity?.name ?? "" : athleteEntity?.name ?? ""),
                     ],
                   ),
                 ),

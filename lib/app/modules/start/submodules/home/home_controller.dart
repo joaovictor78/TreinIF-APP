@@ -29,12 +29,12 @@ class HomeController extends GetxController
         final int page = 2;
         if (carrouselBannerCurrentPage.value < page) {
           carrouselBannerCurrentPage.value++;
-           pageController.animateToPage(carrouselBannerCurrentPage.value,
+          if (pageController.hasClients)  pageController.animateToPage(carrouselBannerCurrentPage.value,
               duration: Duration(milliseconds: 100), curve: Curves.easeInSine);
         } else {
           carrouselBannerCurrentPage.value = 0;
           log(carrouselBannerCurrentPage.value.toString());
-          pageController.animateToPage(carrouselBannerCurrentPage.value,
+         if (pageController.hasClients) pageController.animateToPage(carrouselBannerCurrentPage.value,
               duration: Duration(milliseconds: 100), curve: Curves.easeInSine);
         }
       } 
