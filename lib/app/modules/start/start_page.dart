@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:treinif/app/modules/start/submodules/workouts/presentation/pages/workouts_page.dart';
+import '/app/modules/start/submodules/profile/presentation/pages/profile_page.dart';
+import '/app/modules/start/submodules/workouts/presentation/pages/workouts_page.dart';
 import '/app/core/styles/app_colors.dart';
 import '/app/core/styles/app_icons.dart';
 import '/app/modules/start/start_controller.dart';
@@ -15,7 +16,7 @@ class StartPage extends GetView<StartController> {
       body: PageView(
         controller: controller.pageController,
         onPageChanged: controller.pageChanged,
-        children: [HomePage(), WorkoutsPage(), Container(), Container()],
+        children: [HomePage(), WorkoutsPage(), ProfilePage(), Container()],
       ),
       bottomNavigationBar: AnimatedBuilder(
         builder: (context, snapshot) {
